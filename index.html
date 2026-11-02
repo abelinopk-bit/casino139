@@ -4,8 +4,8 @@
 <meta name="description" content="Lucky Casino - permainan kasino di browser">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Lucky Casino">
@@ -96,6 +96,27 @@ input[type=range]{width:min(320px,80%);accent-color:var(--gold)}
 .cl{aspect-ratio:1;display:grid;place-items:center;font-size:min(9vw,46px);background:linear-gradient(#fff,#d6dde0 50%,#fff);border-radius:10px;box-shadow:inset 0 0 10px #0007}.cl.hit{animation:pop .5s infinite;box-shadow:0 0 0 3px var(--gold),0 0 18px var(--gold)}
 .r5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:12px;max-width:500px;margin:12px auto;background:linear-gradient(#d9a520,#6b4a08);border-radius:20px;box-shadow:inset 0 0 20px #000a,0 0 24px #f6c94566}
 .tc{max-width:520px;margin:8px auto;background:#020b1a;border:2px solid #38e8ff55;border-radius:14px;overflow:hidden}.tc svg{display:block;width:100%}
+/* ===== GAME CEPAT BARU ===== */
+.xs{gap:16px;font-size:13px;color:#d8efe2}.xs b{color:var(--gold)}
+.xhs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:8px 0;min-height:24px}.xhs span{font:700 12px system-ui;padding:3px 9px;border-radius:99px;background:#0007;border:1px solid #fff3}.xhs .w{border-color:#4ade80;color:#4ade80}.xhs .x{border-color:#ff6b70;color:#ff9a9d}
+.xdr{display:flex;gap:18px;justify-content:center;min-height:92px;margin:12px 0}
+.xdv{width:78px;height:78px;padding:9px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);background:linear-gradient(145deg,#fff,#ddd2b8);border-radius:16px;box-shadow:0 6px 14px #000a,inset 0 0 0 2px #0002}
+.xdv i{border-radius:50%;margin:3px}.xdv i.on{background:radial-gradient(#555,#000)}
+.xdv.r{animation:xrl .16s infinite alternate}@keyframes xrl{from{transform:rotate(-14deg) translateY(-6px)}to{transform:rotate(14deg) translateY(4px)}}
+.xcw{perspective:700px;height:160px;display:grid;place-items:center}.xcw.t{animation:xtoss 1.6s ease-out}@keyframes xtoss{40%{transform:translateY(-90px) scale(1.25)}}
+.xcn{width:120px;height:120px;position:relative;transform-style:preserve-3d}
+.xf{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;align-content:center;font-size:50px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:6px double #8a6508;background:radial-gradient(circle at 35% 30%,#fff2a8,#f6c945 55%,#b8860b);box-shadow:inset 0 0 14px #0006,0 8px 18px #000a}.xf small{font:900 11px 'Cinzel',serif;letter-spacing:2px;color:#6b4a08}.xt{transform:rotateY(180deg)}
+.xhd{display:flex;gap:18px;justify-content:center;align-items:center;font-size:78px;min-height:110px}.xhd em{font-style:normal;display:inline-block}.xhd .b em{transform:scaleX(-1)}.xhd.sk span{animation:xsk .3s ease-in-out 3}@keyframes xsk{50%{transform:translateY(-24px)}}
+.xhd small{display:block;font:700 11px system-ui;text-align:center;letter-spacing:2px;color:#d8efe2}
+.xsc{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font:700 13px system-ui;margin:4px 0}.xsc div{background:#0007;padding:6px 12px;border-radius:12px}.xsc b{letter-spacing:2px;font-size:15px;margin-left:4px}
+.xpn{width:min(460px,100%);display:block;margin:6px auto;border-radius:14px;box-shadow:0 8px 20px #000a}
+.xz{fill:#fff0;stroke:#fff3;cursor:default;transition:.15s}.xz.a{cursor:pointer;stroke:#f6c94599}.xz.a:hover{fill:#f6c94544}
+#xb,#xk{transition:transform .55s cubic-bezier(.2,.8,.3,1);pointer-events:none}
+.xrv{width:min(260px,70%);display:block;margin:6px auto;filter:drop-shadow(0 10px 18px #000a)}
+#xcy{transform-origin:0 0}
+.xrk{height:10px;background:#0008;border-radius:9px;overflow:hidden;max-width:320px;margin:6px auto}.xrk i{display:block;height:100%;background:linear-gradient(90deg,#4ade80,#facc15,#ff4d4f);transition:width .3s}
+.xsh{animation:xshk .5s}@keyframes xshk{20%{transform:translate(-8px,4px)}40%{transform:translate(8px,-4px)}60%{transform:translate(-6px,2px)}80%{transform:translate(5px,-2px)}}
+.xfl::after{content:'';position:absolute;inset:0;background:#ff1f1f;opacity:0;animation:xfl .6s;pointer-events:none;border-radius:16px}@keyframes xfl{20%{opacity:.5}}
 </style></head><body>
 <header><div class="logo" onclick="home()">♠ LUCKY CASINO ♦</div><div class="bank"><button class="s i" id="bm" onclick="tgM()">🎵</button><button class="s i" id="bs" onclick="tgS()">🔊</button><span id="un" style="color:var(--mut);font:13px system-ui"></span><b id="bk">0</b><button class="s" onclick="refill()">+ Chip</button><button class="s i" onclick="location.reload()" title="Keluar">⏻</button></div></header>
 <div id="lg"><div class="lc"><div class="lo">♠</div><h1>LUCKY CASINO</h1><p>FUTURE GAMING PORTAL</p><input id="lu" placeholder="Username" maxlength="16" autocomplete="username"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key=='Enter')login()"><button onclick="login()">MASUK ▶</button><div id="le"></div></div></div><div class="wm">© Abelino Putra.K</div>
@@ -394,6 +415,157 @@ if(CM){X.w=!X.w;if(!legal(X.b,X.w).length)return chEnd(inCk(X.b,X.w)?(X.w?'B':'W
 if(!legal(X.b,false).length)return chEnd(inCk(X.b,false)?'W':'D');X.ai=1;X.msg='AI berpikir...';chR();wt(chAI,300)}}
 function chAI(){const Lg=legal(X.b,false);let best=-1e9,bm;for(const m of Lg){const v=-nm(ap(X.b,m),true,2,-1e9,1e9)+Math.random()*.3;if(v>best){best=v;bm=m}}X.b=ap(X.b,bm);X.ai=0;snd('deal');if(!legal(X.b,true).length)return chEnd(inCk(X.b,true)?'B':'D');X.msg=inCk(X.b,true)?'Skak! ♚':'Giliranmu';chR()}
 function chEnd(r){X.over=1;X.ai=0;if(r=='D')X.msg='Remis (stalemate)';else if(CM){X.msg='SKAKMAT! '+(r=='W'?'Putih':'Hitam')+' menang 🎉';snd('win')}else if(r=='W'){pay(150);X.msg='SKAKMAT! Kamu menang +150 🎉';fx(1,1)}else{X.msg='Skakmat. AI menang';fx(0)}chR()}
+// ===== GAME BARU: DICE ROLL · COIN FLIP · BATU GUNTING KERTAS · PENALTY SHOOTOUT · RUSSIAN ROULETTE =====
+const XS={};['dg','cf','rp','ps','rr'].forEach(k=>XS[k]={n:0,w:0,l:0,net:0});
+const xr=n=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n};
+function xs(k){if(!sfx||!AC)return;const t=AC.currentTime;
+if(k=='click'){tn(900,t,.04,'square',.09,sg);nz(t,.02,4000,.25,sg)}
+if(k=='bang'){nz(t,.45,200,.9,sg,'lowpass');tn(70,t,.3,'sawtooth',.4,sg)}
+if(k=='whistle'){tn(2500,t,.3,'sine',.12,sg);tn(2700,t+.12,.25,'sine',.1,sg)}
+if(k=='kick'){nz(t,.08,400,.6,sg,'lowpass');tn(110,t,.12,'triangle',.3,sg)}
+if(k=='flip')for(let i=0;i<6;i++)tn(1500+i*140,t+i*.12,.05,'square',.04,sg);
+if(k=='roll')for(let i=0;i<5;i++)nz(t+i*.1,.05,1500,.25,sg,'bandpass')}
+const xst=o=>`<div class="bar xs"><span>Main <b>${o.n}</b></span><span>Menang <b>${o.w}</b></span><span>Kalah <b>${o.l}</b></span><span>Net <b style="color:${o.net>=0?'#4ade80':'#ff6b70'}">${o.net>0?'+':''}${o.net}</b></span></div>`;
+const xrec=(o,w,d)=>{o.n++;w?o.w++:o.l++;o.net+=d};
+const xbtn=(on,fn,l,x='')=>`<button class="${on?'':'s'}" onclick="${fn}" ${x}>${l}</button>`;
+const xinfo=t=>`<p class="sub" style="text-align:center;font-size:12px;margin:6px 10px">${t}</p>`;
+const xno=()=>say('Chip kurang — klik + Chip');
+
+// ----- DICE ROLL -----
+const PIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+const dvf=(n,c='')=>`<div class="xdv ${c}">${[...Array(9).keys()].map(i=>`<i class="${PIPS[n].includes(i)?'on':''}"></i>`).join('')}</div>`;
+let DG;const dgW=s=>6-Math.abs(s-7);
+const dgM=(p,m)=>m==1?(p.t=='n'?5.7:1.95):p.t=='s'?+(34.9/dgW(p.v)).toFixed(2):p.t=='d'?5.7:2.3;
+const dgWin=(p,d)=>{const s=d[0]+(d[1]||0);return({n:d[0]==p.v,o:d[0]%2==1,e:d[0]%2==0,l:d[0]<4,h:d[0]>3,s:s==p.v,d:d[0]==d[1],u:s<7,x:s>7})[p.t]};
+function dgI(){DG={m:1,p:{t:'o',v:0},d:[1],h:[],rl:0,msg:'Pilih tebakan, lalu lempar dadu'};dgR()}
+function dgP(t,v){if(DG.rl)return;DG.p={t,v};snd('tick');dgR()}
+function dgMode(m){if(DG.rl)return;DG.m=m;DG.p=m==1?{t:'o',v:0}:{t:'s',v:7};DG.d=Array(m).fill(1);snd('tick');dgR()}
+function dgR(w){const m=DG.m,B=(t,v,l)=>xbtn(DG.p.t==t&&DG.p.v==v,`dgP('${t}',${v})`,l),x=dgM(DG.p,m);
+const pk=m==1?[1,2,3,4,5,6].map(n=>B('n',n,n)).join('')+'</div><div class="bar">'+B('o',0,'Ganjil')+B('e',0,'Genap')+B('l',0,'Kecil 1-3')+B('h',0,'Besar 4-6')
+:[2,3,4,5,6,7,8,9,10,11,12].map(n=>B('s',n,n)).join('')+'</div><div class="bar">'+B('d',0,'Kembar')+B('u',0,'Di bawah 7')+B('x',0,'Di atas 7');
+$('g').innerHTML=arc('DICE ROLL')+`<div class="bar">${xbtn(m==1,'dgMode(1)','🎲 1 Dadu')}${xbtn(m==2,'dgMode(2)','🎲🎲 2 Dadu')}</div><div class="xdr" id="dd">${DG.d.map(n=>dvf(n,DG.rl?'r':'')).join('')}</div>`
++(m==2&&!DG.rl?`<div class="lbl">Total<b>${DG.d[0]+DG.d[1]}</b></div>`:'')+`<div class="msg ${w?'w':''}" id="ms">${DG.msg}</div><div class="lbl">Tebakanmu · bayaran ×${x}</div><div class="bar">${pk}</div>`+chips()
++`<div class="bar"><button onclick="dgGo()" ${DG.rl?'disabled':''}>LEMPAR DADU</button></div><div class="xhs">${DG.h.map(o=>`<span class="${o.w?'w':'x'}">${o.d.join('+')}</span>`).join('')}</div>`+xst(XS.dg)
++xinfo('1 dadu: angka tepat ×5.7 (peluang 16.7%) · ganjil/genap/kecil/besar ×1.95 (50%).<br>2 dadu: total tepat ×(34.9 ÷ jumlah kombinasi) · kembar ×5.7 (16.7%) · di bawah/atas 7 ×2.3 (41.7%). Angka 7 tepat = ×5.82.')}
+function dgGo(){if(S.chips<S.bet)return xno();pay(-S.bet);const bt=S.bet,p={...DG.p},m=DG.m,t0=GT,rd=()=>Array.from({length:m},()=>1+xr(6));DG.rl=1;DG.d=rd();xs('roll');dgR();let n=0;
+const iv=setInterval(()=>{if(t0!=GT)return clearInterval(iv);if(++n<14){DG.d=rd();$('dd').innerHTML=DG.d.map(v=>dvf(v,'r')).join('');return snd('tick')}
+clearInterval(iv);DG.d=rd();DG.rl=0;const w=dgWin(p,DG.d),g=Math.floor(bt*dgM(p,m)),s=DG.d.reduce((a,b)=>a+b);
+if(w)pay(g);xrec(XS.dg,w,w?g-bt:-bt);DG.h.unshift({d:DG.d,w});DG.h.length=Math.min(DG.h.length,12);fx(w,w&&g>=bt*3);
+DG.msg=`Hasil ${DG.d.join(' + ')}${m>1?' = '+s:''} — `+(w?'MENANG +'+(g-bt)+' 🎉':'Belum beruntung');dgR(w)},85)}
+
+// ----- COIN FLIP -----
+let CF;
+function cfI(){CF={ph:'bet',pick:'h',pot:0,st:0,rot:0,h:[],msg:'Pilih sisi lalu lempar koin'};cfR()}
+function cfPick(s){if(CF.ph=='flip')return;CF.pick=s;snd('tick');cfR()}
+function cfR(w){const c=CF,hc=c.h.filter(x=>x=='h').length,pk=xbtn(c.pick=='h',"cfPick('h')",'👑 Kepala')+xbtn(c.pick=='t',"cfPick('t')",'🦅 Ekor');
+$('g').innerHTML=arc('COIN FLIP')+`<div class="xcw" id="xw"><div class="xcn" id="xc" style="transform:rotateY(${c.rot}deg)"><div class="xf">👑<small>KEPALA</small></div><div class="xf xt">🦅<small>EKOR</small></div></div></div>`
++(c.pot?`<div class="lbl">Pot<b>${c.pot}</b> Streak<b>${c.st}</b></div>`:'')+`<div class="msg ${w?'w':''}" id="ms">${c.msg}</div><div class="bar">${pk}</div>`
++(c.ph=='won'?`<div class="bar"><button onclick="cfFlip()">GANDAKAN ×1.95</button><button class="s" onclick="cfCash()">AMBIL ${c.pot}</button></div>`:chips()+`<div class="bar"><button onclick="cfFlip()">${c.ph=='end'?'MAIN LAGI':'LEMPAR KOIN'}</button></div>`)
++`<div class="xhs">${c.h.map(x=>`<span class="${x=='h'?'w':'x'}">${x=='h'?'K':'E'}</span>`).join('')}</div><div class="lbl">Kepala<b>${hc}</b> Ekor<b>${c.h.length-hc}</b></div>`+xst(XS.cf)
++xinfo('Peluang 50/50 · menang ×1.95. Setelah menang, pilih AMBIL atau GANDAKAN — pot terus dikali 1.95 selama kamu benar, tapi satu tebakan salah menghanguskan seluruh pot.')}
+function cfFlip(){const c=CF;if(c.ph=='flip')return;if(c.ph!='won'){if(S.chips<S.bet)return xno();pay(-S.bet);c.bet=c.pot=S.bet;c.st=0}
+c.ph='flip';const res=xr(2)?'t':'h',pk=c.pick,nm=r=>r=='h'?'👑 Kepala':'🦅 Ekor';c.rot=(Math.floor(c.rot/360)+6)*360+(res=='h'?0:180);
+const e=$('xc');e.style.transition='transform 1.6s cubic-bezier(.2,.7,.2,1)';void e.offsetWidth;e.style.transform=`rotateY(${c.rot}deg)`;$('xw').classList.add('t');xs('flip');
+document.querySelectorAll('#g button').forEach(b=>b.disabled=true);say('Koin berputar...');
+wt(()=>{c.h.unshift(res);c.h.length=Math.min(c.h.length,20);const w=res==pk;
+if(w){c.st++;c.pot=Math.floor(c.pot*1.95);c.ph='won';c.msg=`${nm(res)}! Pot jadi ${c.pot}`;fx(1,c.st>=3)}
+else{c.ph='end';c.pot=0;xrec(XS.cf,0,-c.bet);c.msg=`${nm(res)} — tebakan meleset, pot hangus`;fx(0)}cfR(w)},1700)}
+function cfCash(){const c=CF;pay(c.pot);xrec(XS.cf,1,c.pot-c.bet);c.msg=`Kamu ambil ${c.pot} chip (+${c.pot-c.bet}) 💰`;c.pot=0;c.ph='end';fx(1,1);cfR(1)}
+
+// ----- BATU GUNTING KERTAS -----
+const RH={r:['✊','Batu'],p:['✋','Kertas'],s:['✌️','Gunting']},RB={r:'s',p:'r',s:'p'};let RP,RPM=[];
+function rpI(){RP={mode:1,lv:0,ph:'bet',a:0,b:0,sh:0,h:[],msg:'Pilih mode & lawan, lalu MULAI'};rpR()}
+function rpSet(k,v){if(RP.ph=='play'||RP.ph=='anim')return;RP[k]=v;if(RP.ph=='end'){RP.ph='bet';RP.a=RP.b=0;RP.sh=0}snd('tick');rpR()}
+function rpR(w){const r=RP,an=r.ph=='anim',pl=r.ph=='play',need=(r.mode+1)/2,f={r:0,p:0,s:0};RPM.forEach(x=>f[x]++);
+$('g').innerHTML=arc('BATU GUNTING KERTAS')+(pl||an?'':`<div class="bar">${[1,3,5].map(n=>xbtn(r.mode==n,`rpSet('mode',${n})`,n==1?'Sekali main':'Best of '+n)).join('')}</div><div class="bar">${xbtn(!r.lv,"rpSet('lv',0)",'🤖 Bot Santai')}${xbtn(r.lv,"rpSet('lv',1)",'🧠 Bot Pintar')}</div>`)
++`<div class="lbl">🤖 Bot<b>${r.b}</b> &nbsp; Kamu<b>${r.a}</b> &nbsp; ${r.mode>1?'Target<b>'+need+'</b>':''}</div>`
++`<div class="xhd ${an?'sk':''}"><span class="b"><em>${an||!r.sh?'✊':RH[r.c][0]}</em></span><b style="font-size:22px;color:var(--gold)">VS</b><span><em>${an||!r.sh?'✊':RH[r.y][0]}</em></span></div>`
++`<div class="msg ${w?'w':''}" id="ms">${r.msg}</div>`
++(pl?`<div class="bar">${'rps'.split('').map(k=>`<button onclick="rpMv('${k}')">${RH[k][0]} ${RH[k][1]}</button>`).join('')}</div>`:chips()+`<div class="bar"><button onclick="rpGo()">${r.ph=='end'?'MAIN LAGI':'MULAI'}</button></div>`)
++`<div class="xhs">${r.h.map(t=>`<span class="${t>0?'w':t<0?'x':''}">${t>0?'MENANG':t<0?'KALAH':'SERI'}</span>`).join('')}</div>`
++`<div class="lbl">Pilihanmu ✊<b>${f.r}</b> ✋<b>${f.p}</b> ✌️<b>${f.s}</b></div>`+xst(XS.rp)
++xinfo('Menang ×1.95 untuk semua mode. Sekali main: seri = chip kembali. Best of 3/5: seri diulang. Bot Pintar membaca kebiasaanmu dan sesekali (±40%) memilih lawan dari pilihan yang paling sering kamu pakai.')}
+function rpGo(){if(S.chips<S.bet)return xno();pay(-S.bet);const r=RP;r.bet=S.bet;r.a=r.b=0;r.sh=0;r.h=[];r.ph='play';r.msg='Pilih senjatamu!';rpR()}
+function rpMv(k){const r=RP;if(r.ph!='play')return;r.ph='anim';r.sh=0;RPM.push(k);let c;
+if(r.lv&&RPM.length>3&&xr(100)<40){const f={r:0,p:0,s:0};RPM.slice(0,-1).forEach(x=>f[x]++);const m=Object.keys(f).sort((a,b)=>f[b]-f[a])[0];c=Object.keys(RB).find(x=>RB[x]==m)}else c='rps'[xr(3)];
+r.y=k;r.c=c;r.msg='Batu... Gunting... Kertas!';rpR();xs('roll');
+wt(()=>{r.sh=1;const t=k==c?0:RB[k]==c?1:-1,need=(r.mode+1)/2;r.h.unshift(t);r.h.length=Math.min(r.h.length,14);if(t>0)r.a++;if(t<0)r.b++;let fin=0;
+const nm=`${RH[k][1]} vs ${RH[c][1]}`;
+if(r.mode==1&&!t){pay(r.bet);XS.rp.n++;r.msg=`${nm} — Seri! Chip kembali`;fin=1;snd('chip')}
+else if(r.a==need||r.b==need){const w=r.a==need,g=Math.floor(r.bet*1.95);fin=1;if(w)pay(g);xrec(XS.rp,w,w?g-r.bet:-r.bet);fx(w,w&&g>=150);r.msg=w?`${nm} — KAMU MENANG +${g-r.bet} 🎉`:`${nm} — Bot menang. Coba lagi!`}
+else{r.msg=`${nm} — `+(t>0?'Poin untukmu!':t<0?'Poin untuk bot':'Seri, ulangi!');r.ph='play';snd(t>0?'win':t<0?'lose':'tick')}
+if(fin)r.ph='end';rpR(fin&&r.a>r.b)},1200)}
+
+// ----- PENALTY SHOOTOUT -----
+const PZ=[[93,60],[200,60],[307,60],[93,120],[200,120],[307,120]],PM=[3,10,22],PSV=[92,75,50],PWN=['Lemah','Sedang','Kuat'];let PS;
+const psKp=z=>z<0?'translate(200px,112px)':`translate(${PZ[z][0]}px,${PZ[z][1]+(z<3?-4:22)}px) rotate(${(z%3-1)*55}deg)`;
+const psSv=(z,k,pw)=>k==z?xr(100)<PSV[pw]:(k/3|0)==(z/3|0)&&Math.abs(k%3-z%3)==1&&pw<2&&xr(100)<18;
+function psSvg(){const on=PS.ph=='aim'||PS.ph=='def';
+return `<svg class="xpn" viewBox="0 0 400 250"><defs><pattern id="xnet" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 0L12 12M12 0L0 12" stroke="#fff3" stroke-width=".8"/></pattern><linearGradient id="xgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c7a42"/><stop offset="1" stop-color="#0c3d20"/></linearGradient></defs><rect width="400" height="250" fill="url(#xgr)"/><rect x="40" y="30" width="320" height="120" fill="url(#xnet)"/>`
++PZ.map((p,i)=>`<rect class="xz ${on?'a':''}" x="${p[0]-53}" y="${p[1]-30}" width="107" height="60" onclick="psZ(${i})"/>`).join('')
++`<path d="M40 150V30H360V150" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><ellipse cx="200" cy="216" rx="16" ry="5" fill="#0004"/>`
++`<g id="xk" style="transform:${psKp(-1)}"><rect x="-10" y="-4" width="8" height="22" rx="3" fill="#1d4ed8"/><rect x="2" y="-4" width="8" height="22" rx="3" fill="#1d4ed8"/><rect x="-14" y="-28" width="28" height="30" rx="7" fill="#f6c945"/><circle cy="-38" r="10" fill="#f2c9a0"/><path d="M-14-22L-30-36M14-22L30-36" stroke="#f6c945" stroke-width="7" stroke-linecap="round"/><circle cx="-31" cy="-37" r="6" fill="#fff"/><circle cx="31" cy="-37" r="6" fill="#fff"/></g>`
++`<g id="xb" style="transform:translate(200px,216px)"><circle r="11" fill="#fff" stroke="#222" stroke-width="2"/><path d="M-4-4L4-4L6 3L0 7L-6 3Z" fill="#222"/></g></svg>`}
+function psI(){PS={ph:'bet',a:[],b:[],pw:1,msg:'Pasang taruhan lalu mulai adu penalti'};psR()}
+function psGo(){if(S.chips<S.bet)return xno();pay(-S.bet);PS={ph:'aim',bet:S.bet,a:[],b:[],pw:1,msg:'🎯 Giliranmu MENENDANG — pilih kekuatan & klik sudut gawang'};xs('whistle');psR()}
+function psPw(p){if(PS.ph!='aim')return;PS.pw=p;snd('tick');psR()}
+function psZ(z){if(PS.ph=='aim')psShoot(z);else if(PS.ph=='def')psDef(z)}
+function psAnim(z,kz,res,mine,cb){const b=$('xb'),k=$('xk');xs('kick');PS.ph='anim';
+let tx=PZ[z][0],ty=PZ[z][1];if(res=='miss'){tx+=((z%3-1)||(xr(2)?1:-1))*75;ty=z<3?10:70}
+b.style.transform=`translate(${tx}px,${ty}px) scale(.65)`;k.style.transform=psKp(kz);
+wt(()=>{const g=res=='goal',m=res=='miss';say(mine?(g?'GOOOL! ⚽🔥':m?'MELEBAR! 😬':'DITEPIS KIPER! 🧤'):(g?'Bot mencetak gol 😬':m?'Tendangan bot melebar! 🎉':'KAMU MENEPIS! 🧤🎉'),mine?g:!g&&!m||m);snd(mine==g||(!mine&&m)?'win':'lose')},650);
+wt(cb,1700)}
+function psShoot(z){const s=PS,pw=s.pw,kz=xr(6);const res=xr(100)<PM[pw]+(z<3&&z%3!=1?6:0)?'miss':psSv(z,kz,pw)?'save':'goal';
+psAnim(z,kz,res,1,()=>{s.a.push(res=='goal'?1:0);psNext()})}
+function psDef(dz){const s=PS,pw=xr(3),z=[0,0,1,2,2,3,3,4,5,5][xr(10)];const res=xr(100)<PM[pw]?'miss':psSv(z,dz,pw)?'save':'goal';
+psAnim(z,dz,res,0,()=>{s.b.push(res=='goal'?1:0);psNext()})}
+function psNext(){const s=PS,sm=a=>a.reduce((x,y)=>x+y,0),ga=sm(s.a),gb=sm(s.b),ka=s.a.length,kb=s.b.length;let r=0;
+if(ka<=5&&kb<=5){if(ga>gb+5-kb)r=1;else if(gb>ga+5-ka)r=-1}else if(ka==kb&&ga!=gb)r=ga>gb?1:-1;
+if(r){s.ph='end';const sc=`${ga}-${gb}`;if(r>0){const g=Math.floor(s.bet*1.95);pay(g);xrec(XS.ps,1,g-s.bet);s.msg=`🏆 KAMU MENANG ${sc}! +${g-s.bet}`;fx(1,1)}else{xrec(XS.ps,0,-s.bet);s.msg=`Bot menang ${sc}. Chip hangus`;fx(0)}return psR(r>0)}
+if(ka>kb){s.ph='def';s.msg='🧤 Giliran BOT menendang — klik zona tempat kamu melompat!'}else{s.ph='aim';s.msg=(ka>=5?'⚠️ SUDDEN DEATH! ':'')+'🎯 Giliranmu menendang'}psR()}
+function psR(w){const s=PS,sm=a=>a.reduce((x,y)=>x+y,0),n=Math.max(5,s.a.length,s.b.length),pp=a=>Array.from({length:n},(_,i)=>a[i]===undefined?'⚪':a[i]?'⚽':'❌').join('');
+$('g').innerHTML=arc('PENALTY SHOOTOUT')+`<div class="xsc"><div>Kamu<b>${pp(s.a)}</b> ${sm(s.a)}</div><div>Bot<b>${pp(s.b)}</b> ${sm(s.b)}</div></div>`+psSvg()+`<div class="msg ${w?'w':''}" id="ms">${s.msg}</div>`
++(s.ph=='aim'?`<div class="bar">Kekuatan: ${PWN.map((x,i)=>xbtn(s.pw==i,`psPw(${i})`,x)).join('')}</div><div class="lbl">Klik sudut gawang untuk menendang</div>`
+:s.ph=='def'?'<div class="lbl">Klik zona gawang untuk melompat</div>':s.ph=='anim'?'':chips()+`<div class="bar"><button onclick="psGo()">${s.ph=='end'?'MAIN LAGI':'MULAI ADU PENALTI'}</button></div>`)
++xst(XS.ps)+xinfo('5 tendangan tiap tim, bergantian (tendang lalu tangkap). Seri → sudden death. Menang ×1.95.<br>Lemah: aman tapi 92% bisa ditepis · Sedang: 10% melebar, 75% tepis · Kuat: 22% melebar, hanya 50% tepis. Pojok atas +6% risiko melebar. Kiper juga bisa menyentuh bola di zona sebelah (jika tendangan tak kuat).')}
+
+// ----- RUSSIAN ROULETTE (simulasi silinder, chip virtual) -----
+let RR;const RMU=(b,k,rs)=>{let p=1;for(let i=0;i<k;i++)p*=rs?(6-b)/6:(6-b-i)/(6-i);return .97/p};
+const rrSvg=(rot,st)=>`<svg class="xrv" viewBox="-100 -108 200 208"><path d="M-9 -104H9L0 -88Z" fill="#f6c945"/><g id="xcy" style="transform:rotate(${rot}deg)"><circle r="86" fill="#7a8088" stroke="#c9ced6" stroke-width="3"/><circle r="70" fill="#4a4f57"/>`
++[0,1,2,3,4,5].map(i=>{const a=i*Math.PI/3,f=st.hit===i?'#e5484d':(st.bul||[]).includes(i)?'#f6c945':(st.safe||[]).includes(i)?'#1f4d35':'#0b0d10';return `<circle cx="${(52*Math.sin(a)).toFixed(1)}" cy="${(-52*Math.cos(a)).toFixed(1)}" r="19" fill="${f}" stroke="#222" stroke-width="3"/>`}).join('')+`<circle r="14" fill="#c9ced6" stroke="#555" stroke-width="3"/></g></svg>`;
+function rrI(){RR={mode:0,bl:1,rs:0,first:0,ph:'bet',rot:0,k:0,m:1,safe:[],bul:[],msg:'Atur risiko, lalu mulai'};rrR()}
+function rrSet(k,v){if(RR.ph=='play')return;RR[k]=v;if(RR.ph=='end'){RR.ph='bet';RR.safe=[];RR.bul=[];RR.hit=undefined;RR.msg='Atur risiko, lalu mulai'}snd('tick');rrR()}
+function rrGo(){if(S.chips<S.bet)return xno();pay(-S.bet);const r=RR,n=r.mode?1:r.bl,c=[];while(c.length<n){const i=xr(6);if(!c.includes(i))c.push(i)}
+Object.assign(r,{bet:S.bet,c,k:0,cur:0,m:1,safe:[],bul:[],hit:undefined,ph:'play',turn:r.mode?r.first:0,busy:0});
+r.msg=r.mode?(r.turn?'Bot mulai duluan...':'Giliranmu — tarik pelatuk'):'Tarik pelatuk... atau berhenti kapan saja setelah aman';rrR();if(r.turn)wt(rrPull,1000)}
+function rrPull(){const r=RR;if(r.ph!='play'||r.busy)return;r.busy=1;const idx=!r.mode&&r.rs?xr(6):r.cur++,hit=r.c.includes(idx);r.rot=(Math.floor(r.rot/360)+3)*360-idx*60;
+const e=$('xcy');e.style.transition='transform .9s cubic-bezier(.2,.7,.1,1)';e.style.transform=`rotate(${r.rot}deg)`;xs('roll');say('Silinder berputar...');
+document.querySelectorAll('#g button').forEach(b=>b.disabled=true);wt(()=>{r.busy=0;hit?rrBang(idx):rrSafe(idx)},1000)}
+function rrSafe(i){const r=RR;r.safe.push(i);xs('click');
+if(!r.mode){r.k++;r.m=RMU(r.bl,r.k,r.rs);if(r.k>=(r.rs?12:6-r.bl))return rrCash(1);r.msg=`*klik* Aman! ×${r.m.toFixed(2)}`}
+else{const who=r.turn;r.turn=1-who;r.msg=(who?'Bot':'Kamu')+' selamat — *klik*'}
+rrR(1);if(r.mode&&r.turn)wt(rrPull,1000)}
+function rrBang(i){const r=RR,g=$('g');r.ph='end';r.hit=i;r.bul=r.c;xs('bang');g.classList.add('xsh','xfl');setTimeout(()=>g.classList.remove('xsh','xfl'),650);
+if(r.mode&&r.turn){const p=Math.floor(r.bet*1.95);pay(p);xrec(XS.rr,1,p-r.bet);r.msg=`💥 BANG! Bot kena — kamu menang +${p-r.bet}`;fx(1,1)}
+else{xrec(XS.rr,0,-r.bet);r.msg=r.mode?'💥 BANG! Giliranmu kena — chip hangus':`💥 BANG! Peluru di ruang ${i+1} — chip hangus`;fx(0)}rrR()}
+function rrCash(auto){const r=RR,g=Math.floor(r.bet*r.m);pay(g);xrec(XS.rr,1,g-r.bet);r.ph='end';r.bul=r.c;r.msg=(auto?'Semua ruang aman terlewati! ':'')+`Kamu ambil ${g} chip (×${r.m.toFixed(2)}, +${g-r.bet}) 💰`;fx(1,r.m>=2);rrR(1)}
+function rrR(w){const r=RR,pl=r.ph=='play',d=r.mode,lim=r.rs?12:6-r.bl;
+const risk=d?1/(6-r.cur):r.rs?r.bl/6:r.bl/(6-r.k);
+const set=pl?'':`<div class="bar">${xbtn(!d,"rrSet('mode',0)",'Solo · ambil kapan saja')}${xbtn(d,"rrSet('mode',1)",'Duel vs Bot')}</div>`+(d?`<div class="bar">Mulai: ${xbtn(!r.first,"rrSet('first',0)",'Aku dulu')}${xbtn(r.first,"rrSet('first',1)",'Bot dulu')}</div>`
+:`<div class="bar">Peluru: ${[1,2,3,4].map(n=>xbtn(r.bl==n,`rrSet('bl',${n})`,n)).join('')}${xbtn(r.rs,`rrSet('rs',${r.rs?0:1})`,r.rs?'🔄 Putar ulang: ON':'Putar ulang: OFF')}</div>`);
+const tb=!d&&!pl?'<table class="pt">'+Array.from({length:Math.min(lim,6)},(_,i)=>`<tr><td>Selamat ${i+1}× tarikan</td><td>×${RMU(r.bl,i+1,r.rs).toFixed(2)}</td></tr>`).join('')+'</table>':'';
+$('g').innerHTML=arc('RUSSIAN ROULETTE')+set+rrSvg(r.rot,{hit:r.hit,bul:r.bul,safe:r.safe})
++(pl?(d?`<div class="lbl">Giliran<b>${r.turn?'Bot':'Kamu'}</b> Peluang kena<b>${Math.round(risk*100)}%</b></div>`:`<div class="lbl">Pot<b>${Math.floor(r.bet*r.m)}</b> ×<b>${r.m.toFixed(2)}</b> Risiko berikut<b>${Math.round(risk*100)}%</b></div><div class="xrk"><i style="width:${risk*100}%"></i></div>`):'')
++`<div class="msg ${w?'w':''}" id="ms">${r.msg}</div>`
++(pl?`<div class="bar"><button class="r" onclick="rrPull()" ${d&&r.turn?'disabled':''}>TARIK PELATUK</button>${!d&&r.k?`<button class="s" onclick="rrCash()">AMBIL ${Math.floor(r.bet*r.m)}</button>`:''}</div>`:chips()+`<div class="bar"><button onclick="rrGo()">${r.ph=='end'?'MAIN LAGI':'MULAI'}</button></div>`)
++tb+xst(XS.rr)+xinfo(d?'Duel: 1 peluru di 6 ruang, tarik bergantian tanpa putar ulang. Yang kena kalah. Menang ×1.95.':'Solo: pilih 1–4 peluru dari 6 ruang. Tiap tarikan aman menaikkan pengali (house edge 3%). "Putar ulang" mengacak silinder tiap tarikan.')+xinfo('Simulasi silinder bergaya kasino · memakai chip virtual, bukan uang asli.')}
+
+// ----- REGISTRASI KE LOBI -----
+Object.assign(G,{dg:['Dice Roll','Tebak angka dadu · 1 atau 2 dadu · hingga ×5.8'],cf:['Coin Flip','Kepala/ekor · gandakan streak'],rp:['Batu Gunting Kertas','Lawan bot · Bo1/3/5 · ×1.95'],ps:['Penalty Shootout','Tendang & tangkap · sudden death'],rr:['Russian Roulette','Silinder 6 ruang · solo & duel']});
+Object.assign(ART,{dg:()=>em('🎲🎲'),cf:()=>em('🪙'),rp:()=>em('✊✋✌️').replace('64px','36px'),ps:()=>em('⚽'),rr:()=>`<div class="fan" style="height:134px">${rrSvg(0,{})}</div>`});
+Object.assign(GM,{dg:dgI,cf:cfI,rp:rpI,ps:psI,rr:rrI});
+CAT.push(['⚡ Duel & Tebak Cepat',['dg','cf','rp','ps','rr']]);Object.assign(BG,{dg:'1-2 DADU',cf:'50/50',rp:'VS BOT',ps:'DUEL',rr:'RISIKO'});
+
 home();
 </script><script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body></html>
