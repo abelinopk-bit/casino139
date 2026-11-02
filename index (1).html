@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><title>Lucky Casino</title>
+<meta name="theme-color" content="#07110c">
+<meta name="description" content="Lucky Casino - permainan kasino di browser">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lucky Casino">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#07110c;--felt:#117a45;--felt2:#063d22;--card:#12241b;--gold:#f6c945;--gold2:#b8860b;--tx:#f6f2e6;--mut:#9fbcae;--red:#e5484d;--line:#ffffff24;--cw:76px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07110c}}
+:root[data-theme="dark"]{--bg:#07110c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#14402b,var(--bg) 60%) fixed;color:var(--tx);font-family:Georgia,serif;min-height:100vh;overflow-x:hidden}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 16px;background:#07110ccc;backdrop-filter:blur(8px);border-bottom:1px solid var(--gold2);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;flex-wrap:wrap}
+.logo{font:900 22px 'Cinzel',Georgia,serif;color:var(--gold);cursor:pointer;letter-spacing:2px;text-shadow:0 0 12px #f6c94588}
+.bank{display:flex;gap:8px;align-items:center;font-family:system-ui,sans-serif}
+.bank b{background:linear-gradient(#1c3a2a,#0d1f16);border:2px solid var(--gold);color:var(--gold);padding:5px 14px;border-radius:99px;font-size:16px;box-shadow:0 0 12px #f6c94533}
+button{font:700 15px system-ui,sans-serif;cursor:pointer;border:0;border-radius:12px;padding:11px 20px;background:linear-gradient(#ffdf6b,var(--gold) 50%,#d9a520);color:#2a1d00;box-shadow:0 4px 0 #8a6508,0 6px 12px #0006;transition:.12s}
+button:hover{filter:brightness(1.1)}button:active{transform:translateY(3px);box-shadow:0 1px 0 #8a6508}button:disabled{opacity:.35;pointer-events:none}
+button.s{background:linear-gradient(#2b4a39,#1a3125);color:var(--tx);box-shadow:0 4px 0 #0a1a12,0 6px 12px #0006;border:1px solid var(--line)}
+button.r{background:linear-gradient(#ff6b70,#d33);color:#fff;box-shadow:0 4px 0 #801}
+button.i{padding:8px 11px;font-size:17px}
+main{max-width:920px;margin:0 auto;padding:18px 14px 50px}
+.hero{text-align:center;padding:26px 0 18px}.hero h1{font:900 clamp(34px,8vw,60px) 'Cinzel',Georgia,serif;margin:0;color:var(--gold);text-shadow:0 0 8px #f6c945,0 0 28px #f6a000aa,0 3px 0 #7a5500;letter-spacing:4px;animation:neon 3s infinite alternate}
+@keyframes neon{50%{text-shadow:0 0 4px #f6c945,0 0 16px #f6a00088,0 3px 0 #7a5500}}
+.sub{color:var(--mut);font-family:system-ui,sans-serif;margin:8px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:10px}
+.tile{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 0,var(--felt),var(--felt2));border:2px solid var(--gold2);border-radius:20px;padding:18px 12px 20px;text-align:center;cursor:pointer;transition:.25s;box-shadow:0 8px 20px #0007}
+.tile:hover{transform:translateY(-6px) scale(1.02);border-color:var(--gold);box-shadow:0 14px 34px #000a,0 0 24px #f6c94544}
+.tile h3{margin:6px 0 2px;color:var(--gold);font:900 22px 'Playfair Display',Georgia,serif}.tile p{margin:0;font:13px system-ui,sans-serif;color:#cfe3d7}
+.fan{position:relative;height:130px;--cw:62px}.fan .c{position:absolute;left:50%;top:14px;margin-left:-31px;animation:none;transform-origin:50% 120%}
+.fan svg{width:120px;margin-top:4px;animation:spin 20s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.badge{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;font:700 11px system-ui;padding:3px 8px;border-radius:99px}
+.bk{background:none;box-shadow:none;color:var(--mut);padding:0 0 8px}
+h2{font:900 30px 'Playfair Display',Georgia,serif;color:var(--gold);margin:4px 0 12px}
+.tbl{position:relative;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(ellipse at 50% 35%,var(--felt),var(--felt2) 85%);border:14px solid #5b3516;border-image:linear-gradient(135deg,#8a5a2b,#3e230d,#8a5a2b) 1;border-radius:30px;padding:16px 12px 20px;box-shadow:inset 0 0 0 3px var(--gold2),inset 0 0 70px #000b,0 24px 50px #000c;min-height:400px}
+.arc{width:min(420px,90%);display:block;margin:-4px auto 0;opacity:.75}.arc text{font:700 15px 'Cinzel',serif;fill:var(--gold);letter-spacing:3px}
+.row{display:flex;justify-content:center;min-height:calc(var(--cw)*1.45 + 14px);align-items:center;margin:4px 0;padding-left:20px}
+.row .c{margin-left:-20px}
+.lbl{text-align:center;font:700 12px system-ui,sans-serif;color:#d8efe2;letter-spacing:2px;text-transform:uppercase;text-shadow:0 1px 3px #000}
+.lbl b{background:#000a;padding:2px 9px;border-radius:99px;color:var(--gold);margin-left:6px}
+.c{width:var(--cw);height:calc(var(--cw)*1.45);background:linear-gradient(145deg,#fff,#eee7d6);border-radius:9px;position:relative;color:#15151a;box-shadow:0 4px 10px #000a,inset 0 0 0 1px #0002;animation:deal .45s cubic-bezier(.2,.8,.3,1.1) both;transition:transform .2s;user-select:none}
+.c.red{color:#c8102e}
+.ix{position:absolute;left:6px;top:4px;text-align:center;line-height:1;font:900 calc(var(--cw)*.24) 'Playfair Display',Georgia,serif}.ix small{display:block;font-size:.85em}
+.ix.b{left:auto;top:auto;right:6px;bottom:4px;transform:rotate(180deg)}
+.p{position:absolute;font-style:normal;font-size:calc(var(--cw)*.28);transform:translate(-50%,-50%);line-height:1}.p.f{transform:translate(-50%,-50%) rotate(180deg)}
+.face{position:absolute;inset:15% 20%;border:2px solid var(--gold2);border-radius:6px;background:linear-gradient(160deg,#fff4c2,#e9c25a 60%,#c99a2e);display:grid;place-items:center;font-size:calc(var(--cw)*.6);box-shadow:inset 0 0 8px #0005;text-shadow:0 2px 2px #0004}
+.c.back{background:repeating-linear-gradient(45deg,#7d1020 0 5px,#a41b30 5px 10px);border:4px solid #fff;display:grid;place-items:center}.c.back b{font-size:calc(var(--cw)*.5);color:var(--gold);background:#5a0b18;width:60%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;border:2px solid var(--gold)}
+.c.hold{transform:translateY(-16px);box-shadow:0 0 0 3px var(--gold),0 0 20px var(--gold)}.c.hold::after{content:'HOLD';position:absolute;bottom:-22px;left:0;right:0;text-align:center;font:700 11px system-ui;color:var(--gold)}
+@keyframes deal{from{opacity:0;transform:translate(120px,-160px) rotate(25deg) scale(.7)}}
+.msg{text-align:center;font:900 clamp(18px,4.5vw,26px) 'Playfair Display',Georgia,serif;min-height:36px;margin:8px 0;color:var(--gold);text-shadow:0 2px 6px #000}
+.msg.w{animation:pop .6s;text-shadow:0 0 18px var(--gold)}@keyframes pop{50%{transform:scale(1.25)}}
+.bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0;align-items:center;font-family:system-ui,sans-serif}
+.ch{--cc:#c0392b;width:58px;height:58px;border-radius:50%;padding:0;border:0;background:conic-gradient(#fff 0 12.5%,var(--cc) 0 25%,#fff 0 37.5%,var(--cc) 0 50%,#fff 0 62.5%,var(--cc) 0 75%,#fff 0 87.5%,var(--cc) 0);position:relative;display:grid;place-items:center;color:#fff;box-shadow:0 5px 0 #0006,0 8px 10px #0008}
+.ch::before{content:'';position:absolute;inset:8px;border-radius:50%;background:radial-gradient(var(--cc),#0006 140%),var(--cc);border:2px dashed #fffa}.ch span{position:relative;font:900 15px system-ui;text-shadow:0 1px 2px #000}
+.ch[data-v="25"]{--cc:#2471a3}.ch[data-v="50"]{--cc:#1e8449}.ch[data-v="100"]{--cc:#222}
+.ch.on{transform:translateY(-8px);box-shadow:0 0 0 3px var(--gold),0 0 18px var(--gold),0 8px 10px #0008}
+.pt{width:100%;border-collapse:collapse;font:13px system-ui,sans-serif;margin-top:10px;background:#0006;border-radius:10px;overflow:hidden}.pt td{padding:4px 12px}.pt td:last-child{text-align:right;color:var(--gold)}.pt tr.w td{background:#f6c94555;color:#fff}
+.wh{width:min(340px,86vw);display:block;margin:0 auto;filter:drop-shadow(0 10px 18px #000a)}
+#wg{transition:transform 5s cubic-bezier(.1,.6,.1,1);transform-origin:0 0}#bl{transition:transform 5s cubic-bezier(.3,.3,.1,1);transform-origin:0 0}
+select{font:700 15px system-ui;padding:10px;border-radius:12px;background:#1a3125;color:var(--tx);border:1px solid var(--gold2)}
+.coin{position:fixed;top:-40px;animation:fall 2s ease-in forwards;z-index:20;pointer-events:none;font-style:normal}@keyframes fall{to{transform:translateY(115vh) rotate(600deg)}}
+
+#lg{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:16px;background:repeating-linear-gradient(0deg,#38e8ff10 0 1px,transparent 1px 36px),repeating-linear-gradient(90deg,#38e8ff10 0 1px,transparent 1px 36px),radial-gradient(circle at 50% 30%,#0b3b50,#050a12 70%)}
+.lc{width:min(380px,100%);padding:30px 26px;text-align:center;background:#0a1a2acc;backdrop-filter:blur(10px);border:1px solid #38e8ff88;border-radius:22px;box-shadow:0 0 40px #38e8ff33,inset 0 0 30px #38e8ff14;display:grid;gap:12px}
+.lc h1{font:900 30px 'Cinzel',serif;margin:0;color:var(--gold);text-shadow:0 0 14px #f6a000}.lc p{margin:0;color:#38e8ff;letter-spacing:5px;font:700 11px system-ui}.lo{font-size:54px;color:var(--gold);animation:neon 2s infinite alternate}
+.lc input{padding:13px 14px;border-radius:12px;border:1px solid #38e8ff66;background:#02080f;color:#fff;font:16px system-ui;outline:0}.lc input:focus{border-color:var(--gold);box-shadow:0 0 12px #f6c94566}
+#le{color:#ff6b70;font:13px system-ui;min-height:18px}
+.wm{position:fixed;right:12px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:50;pointer-events:none;font:700 12px 'Cinzel',serif;letter-spacing:2px;color:#fff;opacity:.55;text-shadow:0 0 6px #000,0 0 10px var(--gold)}
+.reels{display:flex;gap:10px;justify-content:center;margin:14px 0}.rl{width:86px;height:100px;display:grid;place-items:center;font-size:54px;background:linear-gradient(#fff,#cfd8dc 50%,#fff);border-radius:14px;box-shadow:inset 0 0 14px #0008,0 0 0 4px var(--gold2),0 0 16px var(--gold)}
+.crash{position:relative;height:200px;margin:10px auto;max-width:520px;border:2px solid #38e8ff55;border-radius:16px;background:repeating-linear-gradient(0deg,#38e8ff14 0 1px,transparent 1px 40px),linear-gradient(#020b1a,#06304a);overflow:hidden}.rk{position:absolute;font-size:44px;transition:.07s linear}.mx{position:absolute;inset:0;display:grid;place-items:center;font:900 52px 'Cinzel',serif;color:#38e8ff;text-shadow:0 0 18px #38e8ff}
+.mg{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:360px;margin:10px auto}.mt{aspect-ratio:1;font-size:28px;padding:0;background:linear-gradient(#1b3b56,#0d2236);box-shadow:0 3px 0 #04101a;border:1px solid #38e8ff55}.mt:disabled{opacity:1}.mt.gm{background:#0f6b4a}.mt.bm{background:#8a1020}
+.cups{position:relative;height:130px;max-width:480px;margin:20px auto}.cp{position:absolute;top:0;width:33.3%;text-align:center;cursor:pointer;transition:left .3s}.cu{display:block;font-size:68px;position:relative;z-index:1;transition:transform .3s}.cp.up .cu{transform:translateY(-56px)}.ball{position:absolute;bottom:4px;left:0;right:0;font-size:26px}
+.chess{display:grid;grid-template-columns:repeat(8,1fr);width:min(440px,100%);margin:10px auto;border:5px solid #5b3516;border-radius:6px;box-shadow:0 10px 24px #000a}.sq{aspect-ratio:1;display:grid;place-items:center;font-size:min(8vw,40px);cursor:pointer;position:relative;line-height:1}.sq.l{background:#e8d7b0}.sq.d{background:#a87b4f}.sq.s{box-shadow:inset 0 0 0 4px var(--gold)}.sq.t::after{content:'';position:absolute;width:30%;height:30%;border-radius:50%;background:#0a7a3a99}.pw{color:#fff;text-shadow:0 0 2px #000,0 0 2px #000,0 1px 3px #000}.pb{color:#111;text-shadow:0 0 1px #fff8}
+input[type=range]{width:min(320px,80%);accent-color:var(--gold)}
+.ct{font:900 20px 'Cinzel',serif;color:var(--gold);margin:28px 0 2px;letter-spacing:2px;border-bottom:1px solid var(--gold2);padding-bottom:6px}
+.tile::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,#ffffff22 50%,transparent 60%);transform:translateX(-100%);transition:.6s;pointer-events:none}.tile:hover::before{transform:translateX(100%)}
+.badge.g{background:var(--gold);color:#2a1d00}
+.pl{display:inline-flex;gap:6px;align-items:center;padding:4px 12px;border-radius:99px;background:#0007;border:2px solid transparent;font:700 13px system-ui;flex-wrap:wrap;justify-content:center}.pl.on{border-color:var(--gold);box-shadow:0 0 12px #f6c94566}
+.tk{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 3px #000a}
+.ub{display:grid;grid-template-columns:repeat(10,1fr);max-width:480px;margin:8px auto;border:4px solid #5b3516;border-radius:8px;overflow:hidden;box-shadow:0 10px 24px #000a}
+.ut{aspect-ratio:1;position:relative;background:#f1e4bd;color:#5a4521;font-size:min(4.2vw,20px);display:grid;place-items:center}.ut.a{background:#e2cf9c}.ut.sn{background:#f5b7b1}.ut.la{background:#a9dfbf}.ut small{position:absolute;left:2px;top:1px;font:700 8px system-ui}.tks{position:absolute;bottom:1px;display:flex;flex-wrap:wrap;justify-content:center;gap:1px;max-width:100%}.ut .tk{width:10px;height:10px;border-width:1px}
+.die{font-size:54px;line-height:1;color:#fff;text-shadow:0 0 10px #000}
+.trk{max-width:560px;margin:10px auto;display:grid;gap:8px}.ln{position:relative;height:46px;border-radius:10px;background:repeating-linear-gradient(90deg,#2a2d34 0 28px,#31343c 28px 56px);border:2px solid #0008;overflow:hidden}.ln.on{border-color:var(--gold);box-shadow:0 0 12px #f6c94566}.hz .ln{height:42px;background:repeating-linear-gradient(90deg,#7a5a2a 0 28px,#8a6a34 28px 56px);cursor:pointer}.car{position:absolute;top:3px;font-size:30px;transition:left .35s;z-index:1}.hz .car{transition:left .07s linear}.ln b{position:absolute;right:8px;top:8px;font-size:22px}.ln em{position:absolute;left:8px;top:4px;font:700 11px system-ui;color:#fffb}
+.mm{grid-template-columns:repeat(4,1fr)!important}
+.sm{--cw:40px;min-height:70px}
+.cn{display:flex;flex-wrap:wrap;justify-content:center;max-width:560px;margin:8px auto;min-height:44px}.cn .dmt{font-size:20px}.cn .dmt i{height:20px}
+.dmt{display:inline-flex;align-items:center;background:#f5f1e3;color:#111;border-radius:8px;padding:2px 5px;margin:3px;box-shadow:0 3px 6px #0008;font-size:30px;line-height:1.1;cursor:pointer;user-select:none}.dmt i{width:2px;height:30px;background:#444;margin:0 3px}
+.cl{aspect-ratio:1;display:grid;place-items:center;font-size:min(9vw,46px);background:linear-gradient(#fff,#d6dde0 50%,#fff);border-radius:10px;box-shadow:inset 0 0 10px #0007}.cl.hit{animation:pop .5s infinite;box-shadow:0 0 0 3px var(--gold),0 0 18px var(--gold)}
+.r5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:12px;max-width:500px;margin:12px auto;background:linear-gradient(#d9a520,#6b4a08);border-radius:20px;box-shadow:inset 0 0 20px #000a,0 0 24px #f6c94566}
+.tc{max-width:520px;margin:8px auto;background:#020b1a;border:2px solid #38e8ff55;border-radius:14px;overflow:hidden}.tc svg{display:block;width:100%}
+</style></head><body>
+<header><div class="logo" onclick="home()">♠ LUCKY CASINO ♦</div><div class="bank"><button class="s i" id="bm" onclick="tgM()">🎵</button><button class="s i" id="bs" onclick="tgS()">🔊</button><span id="un" style="color:var(--mut);font:13px system-ui"></span><b id="bk">0</b><button class="s" onclick="refill()">+ Chip</button><button class="s i" onclick="location.reload()" title="Keluar">⏻</button></div></header>
+<div id="lg"><div class="lc"><div class="lo">♠</div><h1>LUCKY CASINO</h1><p>FUTURE GAMING PORTAL</p><input id="lu" placeholder="Username" maxlength="16" autocomplete="username"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key=='Enter')login()"><button onclick="login()">MASUK ▶</button><div id="le"></div></div></div><div class="wm">© Abelino Putra.K</div>
+<main id="m"></main>
+<script>
+const $=id=>document.getElementById(id);const S={chips:1000,bet:25};
+try{S.chips=+localStorage.getItem('lc')||1000}catch(e){}
+function upd(){$('bk').textContent='🪙 '+S.chips.toLocaleString('id-ID');try{localStorage.setItem('lc',S.chips)}catch(e){}}
+function refill(){S.chips+=S.chips<1000?1000-S.chips:500;snd('chip');upd()}
+// ===== AUDIO (disintesis, tanpa file) =====
+let AC,mg,sg,fl,dl,ar,mus=true,sfx=true,nb,nx=0,st=0,run=0;
+const mf=n=>440*2**((n-69)/12);
+function ac(){if(!AC){AC=new(window.AudioContext||webkitAudioContext)();mg=AC.createGain();sg=AC.createGain();mg.gain.value=.5;sg.gain.value=.8;mg.connect(AC.destination);sg.connect(AC.destination);fl=AC.createBiquadFilter();fl.type='lowpass';fl.frequency.value=1600;fl.connect(mg);dl=AC.createDelay();dl.delayTime.value=.45;const fb=AC.createGain();fb.gain.value=.38;dl.connect(fb);fb.connect(dl);dl.connect(mg);ar=AC.createGain();ar.connect(mg);ar.connect(dl);nb=AC.createBuffer(1,AC.sampleRate*.3,AC.sampleRate);const d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}if(AC.state=='suspended')AC.resume()}
+function tn(f,t,d,ty,v,o){const a=AC.createOscillator(),g=AC.createGain();a.type=ty;a.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);a.connect(g);g.connect(o);a.start(t);a.stop(t+d+.05)}
+function nz(t,d,f,v,o,ty='highpass'){const s=AC.createBufferSource(),b=AC.createBiquadFilter(),g=AC.createGain();s.buffer=nb;b.type=ty;b.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(b);b.connect(g);g.connect(o);s.start(t);s.stop(t+d)}
+const CH=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]],LD=[69,72,74,76,79,81];
+function kk(t){const a=AC.createOscillator(),g=AC.createGain();a.frequency.setValueAtTime(150,t);a.frequency.exponentialRampToValueAtTime(42,t+.14);g.gain.setValueAtTime(.7,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);a.connect(g);g.connect(mg);a.start(t);a.stop(t+.3)}
+function step(){const b=st%16,c=CH[(st>>4)%4],t=nx;
+if(b==0)c.forEach(n=>{tn(mf(n),t,2.5,'sawtooth',.025,fl);tn(mf(n-12),t,2.5,'triangle',.05,fl)});
+if(b%4==0)kk(t);
+if(b==4||b==12)nz(t,.16,1800,.3,mg,'bandpass');
+nz(t,b%2?.02:.04,b%2?9000:8000,b%2?.025:.05,mg);
+if(b%2==0)tn(mf(c[0]-24+(b%8==6?12:0)),t,.2,'sawtooth',.12,fl);
+tn(mf(c[st%3]+12*(1+(st>>2)%2)),t,.14,'square',.035,ar);
+if(b%4==2&&Math.random()<.55)tn(mf(LD[Math.random()*6|0]),t,.5,'triangle',.07,ar);
+st++;nx+=.15}
+function sched(){while(nx<AC.currentTime+.4)step()}
+function startMus(){if(run)return;run=1;nx=AC.currentTime+.1;setInterval(sched,120)}
+document.addEventListener('pointerdown',()=>{ac();startMus()},{once:true});
+function snd(k){if(!sfx||!AC)return;const t=AC.currentTime;
+if(k=='deal'){nz(t,.09,2500,.5,sg);nz(t+.03,.05,5000,.3,sg)}
+if(k=='chip'){[0,.05,.1].forEach((d,i)=>tn(2000+i*300,t+d,.08,'square',.06,sg));nz(t,.05,6000,.2,sg)}
+if(k=='tick')tn(1400,t,.03,'square',.05,sg);
+if(k=='win')[60,64,67,72,76].forEach((n,i)=>tn(mf(n+12),t+i*.09,.5,'triangle',.18,sg));
+if(k=='lose')[55,52,48].forEach((n,i)=>tn(mf(n),t+i*.18,.4,'sawtooth',.07,sg))}
+function tgM(){ac();startMus();mus=!mus;mg.gain.value=mus?.5:0;$('bm').style.opacity=mus?1:.4}
+function tgS(){sfx=!sfx;$('bs').style.opacity=sfx?1:.4}
+function rain(){for(let i=0;i<30;i++){const s=document.createElement('i');s.textContent='🪙';s.className='coin';s.style.cssText=`left:${Math.random()*100}vw;animation-delay:${Math.random()*.7}s;font-size:${18+Math.random()*20}px`;document.body.append(s);setTimeout(()=>s.remove(),3000)}}
+function fx(w,big){snd(w?'win':'lose');if(w&&big)rain()}
+function say(t,w){const e=$('ms');if(e){e.textContent=t;e.className='msg'+(w?' w':'')}}
+// ===== KARTU =====
+const PIP={2:'1,0 1,4',3:'1,0 1,2 1,4',4:'0,0 2,0 0,4 2,4',5:'0,0 2,0 1,2 0,4 2,4',6:'0,0 2,0 0,2 2,2 0,4 2,4',7:'0,0 2,0 1,1 0,2 2,2 0,4 2,4',8:'0,0 2,0 1,1 0,2 2,2 1,3 0,4 2,4',9:'0,0 2,0 0,1.4 2,1.4 1,2 0,2.6 2,2.6 0,4 2,4',10:'0,0 2,0 1,.7 0,1.4 2,1.4 0,2.6 2,2.6 1,3.3 0,4 2,4'};
+function cd(c,h,cl=''){if(h)return '<div class="c back"><b>♠</b></div>';const r=c.r,s=c.s;let m;
+if(PIP[r])m=PIP[r].split(' ').map(p=>{const[x,y]=p.split(',');return `<i class="p ${y>2?'f':''}" style="left:${30+x*20}%;top:${14+y*18}%">${s}</i>`}).join('');
+else if(r=='A')m=`<i class="p" style="left:50%;top:50%;font-size:calc(var(--cw)*.6)">${s}</i>`;
+else m=`<div class="face"><span>${{K:'♚',Q:'♛',J:'♞'}[r]}</span></div>`;
+const ix=`<span>${r}</span><small>${s}</small>`;
+return `<div class="c ${'♥♦'.includes(s)?'red':''} ${cl}"><div class="ix">${ix}</div>${m}<div class="ix b">${ix}</div></div>`}
+function mk(){const d=[];for(const s of '♠♥♦♣')for(const r of ['A',2,3,4,5,6,7,8,9,10,'J','Q','K'])d.push({r,s});for(let i=d.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[d[i],d[j]]=[d[j],d[i]]}return d}
+const rk=r=>({A:14,K:13,Q:12,J:11})[r]||+r;
+function chips(){return '<div class="bar">'+[10,25,50,100].map(v=>`<button class="ch ${S.bet==v?'on':''}" data-v="${v}" onclick="S.bet=${v};snd('chip');document.querySelectorAll('.ch').forEach(b=>b.classList.toggle('on',+b.dataset.v==${v}))"><span>${v}</span></button>`).join('')+'</div>'}
+function pay(n){S.chips+=n;upd()}
+const arc=t=>`<svg class="arc" viewBox="0 0 400 70"><path id="ap" d="M10 62Q200 -8 390 62" fill="none"/><text><textPath href="#ap" startOffset="50%" text-anchor="middle">${t}</textPath></text></svg>`;
+// ===== ROULETTE SVG =====
+const ORD=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26],RED=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+function wheel(){const q=2*Math.PI/37,P=(r,a)=>`${(r*Math.cos(a)).toFixed(1)} ${(r*Math.sin(a)).toFixed(1)}`;let w='';
+ORD.forEach((n,i)=>{const a0=i*q-q/2-Math.PI/2,a1=a0+q,f=n==0?'#0e7a3a':RED.includes(n)?'#c0262d':'#16161a';
+w+=`<path d="M${P(138,a0)}A138 138 0 0 1 ${P(138,a1)}L${P(96,a1)}A96 96 0 0 0 ${P(96,a0)}Z" fill="${f}" stroke="#d4a62a" stroke-width=".8"/><text transform="rotate(${i*360/37}) translate(0,-117)" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="#fff" font-family="system-ui">${n}</text>`});
+return `<svg class="wh" viewBox="-160 -160 320 320"><defs><radialGradient id="rg"><stop offset="0" stop-color="#ffe58a"/><stop offset="1" stop-color="#a87810"/></radialGradient><radialGradient id="wd"><stop offset=".85" stop-color="#7a4a20"/><stop offset="1" stop-color="#3a1f08"/></radialGradient></defs><circle r="156" fill="url(#wd)"/><circle r="145" fill="none" stroke="#d4a62a" stroke-width="3"/><g id="wg">${w}<circle r="94" fill="#2a1a0c"/><circle r="70" fill="url(#rg)"/><circle r="22" fill="#fff3b0" stroke="#8a6508" stroke-width="3"/>${[0,90,180,270].map(a=>`<rect x="-3" y="-66" width="6" height="40" fill="#8a6508" transform="rotate(${a})"/>`).join('')}</g><g id="bl"><circle cx="0" cy="-128" r="6" fill="#fff" stroke="#999"/></g></svg>`}
+// ===== LOBI =====
+const G={bj:['Blackjack','Kalahkan dealer, dekati 21'],vp:['Video Poker','Jacks or Better · hingga ×800'],rl:['Roulette','Roda Eropa dengan 37 kantong'],hl:['Hi-Lo','Tebak kartu, kumpulkan streak']};
+const ART={bj:()=>fan([{r:'A',s:'♠'},{r:'K',s:'♥'}],[-14,14]),vp:()=>fan([{r:10,s:'♦'},{r:'J',s:'♦'},{r:'Q',s:'♦'},{r:'K',s:'♦'},{r:'A',s:'♦'}],[-24,-12,0,12,24]),rl:()=>wheel().replace('class="wh"','').replace(/id="(wg|bl|rg|wd)"/g,'').replace(/url\(#(rg|wd)\)/g,'#c9a227'),hl:()=>fan([{r:7,s:'♣'},{r:'Q',s:'♥'}],[-12,12])};
+function fan(a,r){return `<div class="fan">${a.map((c,i)=>cd(c).replace('class="c','style="transform:rotate('+r[i]+'deg)" class="c')).join('')}</div>`}
+function home(){let h='<div class="hero"><h1>LUCKY CASINO</h1><p class="sub">Main gratis dengan chip virtual – tanpa uang asli. Nyalakan suara 🎵</p></div><div class="grid">';
+for(const k in G)h+=`<div class="tile" onclick="go('${k}')">${k=='rl'?'<div class="fan" style="height:134px"><div style="width:120px;margin:0 auto;animation:spin 20s linear infinite">'+ART.rl()+'</div></div>':ART[k]()}<h3>${G[k][0]}</h3><p>${G[k][1]}</p></div>`;
+$('m').innerHTML=h+'</div>';upd()}
+function go(k){snd('chip');$('m').innerHTML=`<button class="bk" onclick="home()">← Lobi</button><h2>${G[k][0]}</h2><div class="tbl" id="g"></div>`;if(K&&K.iv)clearInterval(K.iv);GM[k]();upd()}
+// ===== BLACKJACK =====
+let B;
+const hv=h=>{let t=0,a=0;h.forEach(c=>{if(c.r=='A'){a++;t+=11}else t+=['J','Q','K'].includes(c.r)?10:+c.r});while(t>21&&a){t-=10;a--}return t};
+function bjI(){B={ph:'bet',p:[],d:[],msg:'Pasang taruhan lalu Deal'};bjR()}
+function bjR(w){const e=B.ph!='play';
+$('g').innerHTML=arc('BLACKJACK PAYS 3 TO 2')+`<div class="lbl">Dealer${e&&B.d.length?'<b>'+hv(B.d)+'</b>':''}</div><div class="row">${B.d.map((c,i)=>cd(c,B.ph=='play'&&i==1)).join('')}</div><div class="msg ${w?'w':''}" id="ms">${B.msg}</div><div class="row">${B.p.map(c=>cd(c)).join('')}</div><div class="lbl">Kamu${B.p.length?'<b>'+hv(B.p)+'</b>':''}</div>`+
+(B.ph=='play'?`<div class="bar"><button onclick="bjHit()">Hit</button><button class="s" onclick="bjStand()">Stand</button><button class="s" onclick="bjDbl()" ${S.chips<B.bet?'disabled':''}>Double</button></div>`:chips()+'<div class="bar"><button onclick="bjDeal()">DEAL</button></div>')}
+function bjDeal(){if(S.chips<S.bet){B.msg='Chip kurang – klik + Chip';return bjR()}
+pay(-S.bet);snd('chip');B={ph:'play',deck:mk(),bet:S.bet,p:[],d:[],msg:''};B.p.push(B.deck.pop(),B.deck.pop());B.d.push(B.deck.pop(),B.deck.pop());snd('deal');
+hv(B.p)==21?bjStand():bjR()}
+function bjHit(){snd('deal');B.p.push(B.deck.pop());hv(B.p)>21?bjFin():bjR()}
+function bjDbl(){pay(-B.bet);B.bet*=2;snd('deal');B.p.push(B.deck.pop());hv(B.p)>21?bjFin():bjStand()}
+function bjStand(){while(hv(B.d)<17)B.d.push(B.deck.pop());snd('deal');bjFin()}
+function bjFin(){const p=hv(B.p),d=hv(B.d),n=p==21&&B.p.length==2;B.ph='end';let w=0,big=0;
+if(p>21)B.msg='Bust! Kamu kalah 💥';
+else if(n&&!(d==21&&B.d.length==2)){pay(B.bet*2.5|0);B.msg='BLACKJACK! 🎉';w=big=1}
+else if(d>21||p>d){pay(B.bet*2);B.msg='Kamu menang! +'+B.bet;w=1;big=B.bet>=50}
+else if(p==d){pay(B.bet);B.msg='Seri (push)';w=2}else B.msg='Dealer menang';
+if(w!=2)fx(w,big);bjR(w==1)}
+// ===== VIDEO POKER =====
+const PT=[['Royal Flush',800],['Straight Flush',50],['Four of a Kind',25],['Full House',9],['Flush',6],['Straight',4],['Three of a Kind',3],['Two Pair',2],['Jacks or Better',1]];let V;
+function ev(h){const v=h.map(c=>rk(c.r)).sort((a,b)=>a-b),fl=h.every(c=>c.s==h[0].s),cn={};v.forEach(x=>cn[x]=(cn[x]||0)+1);
+const k=Object.values(cn).sort((a,b)=>b-a),st=(new Set(v).size==5&&v[4]-v[0]==4)||v.join()=='2,3,4,5,14';
+if(st&&fl)return v[0]==10?0:1;if(k[0]==4)return 2;if(k[0]==3&&k[1]==2)return 3;if(fl)return 4;if(st)return 5;if(k[0]==3)return 6;if(k[0]==2&&k[1]==2)return 7;
+if(k[0]==2&&+Object.keys(cn).find(x=>cn[x]==2)>=11)return 8;return -1}
+function vpI(){V={ph:'bet',h:[],hold:[],msg:'Taruhan lalu Deal',w:-1};vpR()}
+function vpR(w){$('g').innerHTML=`<div class="row" style="padding-bottom:22px">${V.h.map((c,i)=>`<div onclick="vpHold(${i})" style="cursor:pointer">${cd(c,0,V.hold[i]?'hold':'')}</div>`).join('')||'<div class="lbl">♠ ♥ ♦ ♣</div>'}</div><div class="msg ${w?'w':''}" id="ms">${V.msg}</div>`+
+(V.ph=='hold'?'<div class="bar"><button onclick="vpDraw()">DRAW</button></div>':chips()+'<div class="bar"><button onclick="vpDeal()">DEAL</button></div>')+
+'<table class="pt">'+PT.map((p,i)=>`<tr class="${V.w==i?'w':''}"><td>${p[0]}</td><td>×${p[1]}</td></tr>`).join('')+'</table>'}
+function vpDeal(){if(S.chips<S.bet){V.msg='Chip kurang';return vpR()}pay(-S.bet);snd('deal');V={ph:'hold',deck:mk(),bet:S.bet,hold:[],w:-1,msg:'Klik kartu untuk HOLD'};V.h=V.deck.splice(0,5);vpR()}
+function vpHold(i){if(V.ph!='hold')return;snd('tick');V.hold[i]=!V.hold[i];vpR()}
+function vpDraw(){snd('deal');V.h=V.h.map((c,i)=>V.hold[i]?c:V.deck.pop());V.ph='end';V.hold=[];V.w=ev(V.h);const w=V.w>=0;
+if(w){pay(V.bet*PT[V.w][1]);V.msg=PT[V.w][0]+'! +'+V.bet*PT[V.w][1]}else V.msg='Tidak ada kombinasi';fx(w,w&&V.w<8);vpR(w)}
+// ===== ROULETTE =====
+let R;
+function rlI(){R={pick:'red',spin:false,rot:0,brot:0};$('g').innerHTML=arc('EUROPEAN ROULETTE')+wheel()+'<div class="msg" id="ms">Pilih taruhan & putar</div><div id="rc"></div>';rlC()}
+function rlC(){const o=[['red','🔴 Merah ×2'],['black','⚫ Hitam ×2'],['odd','Ganjil ×2'],['even','Genap ×2']],d=R.spin?'disabled':'';
+$('rc').innerHTML=`<div class="bar">${o.map(x=>`<button class="${R.pick==x[0]?'':'s'}" onclick="R.pick='${x[0]}';rlC()" ${d}>${x[1]}</button>`).join('')}<select ${d} onchange="R.pick='n'+this.value;rlC()"><option value="" ${R.pick[0]!='n'?'selected':''}>Angka ×36</option>${ORD.slice().sort((a,b)=>a-b).map(n=>`<option ${R.pick=='n'+n?'selected':''}>${n}</option>`).join('')}</select></div>`+chips()+`<div class="bar"><button onclick="rlSpin()" ${d}>PUTAR!</button></div>`}
+function rlSpin(){if(S.chips<S.bet){return say('Chip kurang – klik + Chip')}pay(-S.bet);snd('chip');R.spin=true;R.bet=S.bet;rlC();say('Berputar...');
+const i=Math.random()*37|0,n=ORD[i];R.rot=(Math.floor(R.rot/360)+6)*360-i*360/37;R.brot=(Math.floor(R.brot/360)-7)*360;
+$('wg').style.transform=`rotate(${R.rot}deg)`;$('bl').style.transform=`rotate(${R.brot}deg)`;
+let t=0,d=45;while(t<4900){setTimeout(()=>snd('tick'),t);t+=d;d*=1.07}
+setTimeout(()=>rlEnd(n),5200)}
+function rlEnd(n){const p=R.pick;let m=0;
+if(p=='red'&&RED.includes(n))m=2;if(p=='black'&&n&&!RED.includes(n))m=2;if(p=='odd'&&n&&n%2)m=2;if(p=='even'&&n&&n%2==0)m=2;if(p=='n'+n)m=36;
+R.spin=false;const c=n==0?'🟢':RED.includes(n)?'🔴':'⚫';rlC();
+if(m){pay(R.bet*m);fx(1,m>2||R.bet>=50);say(`${c} ${n} – Menang! +${R.bet*(m-1)}`,1)}else{fx(0);say(`${c} ${n} – Kalah. Coba lagi!`)}}
+// ===== HI-LO =====
+let H;
+function hlI(){H={ph:'bet',msg:'Tebak kartu berikutnya',pot:0,s:0};hlR()}
+function hlR(w){$('g').innerHTML=arc('HIGHER OR LOWER')+`<div class="row">${H.c?cd(H.c):'<div class="lbl">♠ ♥ ♦ ♣</div>'}</div><div class="msg ${w?'w':''}" id="ms">${H.msg}</div>`+(H.ph=='play'?`<div class="lbl">Pot<b>${H.pot}</b> Streak<b>${H.s}</b></div><div class="bar"><button onclick="hlG(1)">⬆ Lebih Tinggi</button><button class="r" onclick="hlG(-1)">⬇ Lebih Rendah</button><button class="s" onclick="hlCash()" ${H.s?'':'disabled'}>Ambil ${H.pot}</button></div>`:chips()+'<div class="bar"><button onclick="hlStart()">MULAI</button></div>')}
+function hlStart(){if(S.chips<S.bet){H.msg='Chip kurang';return hlR()}pay(-S.bet);snd('deal');H={ph:'play',pot:S.bet,s:0,deck:mk(),msg:'Tebak!'};H.c=H.deck.pop();hlR()}
+function hlG(d){const n=H.deck.pop(),a=rk(H.c.r),b=rk(n.r);H.c=n;snd('deal');
+if(b!=a&&(b>a?1:-1)==d){H.s++;H.pot=Math.round(H.pot*1.6);H.msg='Benar! 🔥';snd('win');hlR(1)}else{H.ph='end';H.msg=b==a?'Sama – kamu kalah':'Salah! Pot hangus';H.pot=0;H.s=0;fx(0);hlR()}}
+function hlCash(){pay(H.pot);H.msg='Kamu ambil '+H.pot+' 🎉';H.ph='end';H.s=0;fx(1,1);hlR(1)}
+
+const em=e=>`<div class="fan" style="font-size:64px;line-height:130px;--cw:0">${e}</div>`;
+Object.assign(G,{sl:['Cyber Slots','Slot neon · jackpot ×80'],cr:['Rocket Crash','Tarik sebelum roket meledak'],mn:['Crystal Mines','Cari kristal, hindari ranjau'],sh:['Tebak Gelas','Ikuti bola di antara 3 gelas'],dc:['Cyber Dice','Atur target & risikomu'],ch:['Cyber Chess','Catur vs AI · menang +150']});
+Object.assign(ART,{sl:()=>em('🎰'),cr:()=>em('🚀'),mn:()=>em('💎'),sh:()=>em('🥤'),dc:()=>em('🎲'),ch:()=>em('♟️')});
+const GM={bj:bjI,vp:vpI,rl:rlI,hl:hlI,sl:slI,cr:crI,mn:mnI,sh:shI,dc:dcI,ch:chI};
+function login(){const u=$('lu').value.trim(),p=$('lp').value;if(!u)return $('le').textContent='Username wajib diisi';if(p!=='Abelino2203')return $('le').textContent='Password salah ❌';S.user=u.slice(0,16);$('lg').remove();$('un').textContent='👤 '+S.user;snd('win');home()}
+// SLOT
+const SY=['🍒','🍋','🔔','⭐','7️⃣','💎'],SP={'💎':80,'7️⃣':50,'⭐':25,'🔔':15,'🍒':12,'🍋':8};let L;
+function slI(){L={r:['💎','7️⃣','⭐']};$('g').innerHTML=arc('CYBER SLOTS')+'<div class="reels">'+[0,1,2].map(i=>`<div class="rl" id="r${i}">${L.r[i]}</div>`).join('')+'</div><div class="msg" id="ms">Putar & raih jackpot</div>'+chips()+'<div class="bar"><button id="sb" onclick="slSpin()">SPIN</button></div>'}
+function slSpin(){if(S.chips<S.bet)return say('Chip kurang');pay(-S.bet);const bt=S.bet;$('sb').disabled=true;say('Berputar...');let t=0;const iv=setInterval(()=>{t++;snd('tick');for(let i=0;i<3;i++)if(t<14+i*7)$('r'+i).textContent=SY[Math.random()*6|0];if(t>=28){clearInterval(iv);const r=[0,1,2].map(i=>$('r'+i).textContent);let m=r[0]==r[1]&&r[1]==r[2]?SP[r[0]]:r.filter(x=>x=='🍒').length==2?1:0;if(m)pay(bt*m);fx(m>1,m>=15);say(m>1?'MENANG ×'+m+'! 🎉':m?'Uang kembali':'Belum beruntung',m>1);$('sb').disabled=false}},80)}
+// CRASH
+let K;
+function crI(){K={ph:'bet',m:1,msg:'Tarik sebelum roket meledak!'};crR()}
+function crR(){$('g').innerHTML=arc('ROCKET CRASH')+`<div class="crash"><div class="rk" id="rk" style="left:4%;bottom:6%">${K.ph=='boom'?'💥':'🚀'}</div><div class="mx" id="mx">${K.m.toFixed(2)}×</div></div><div class="msg" id="ms">${K.msg}</div>`+(K.ph=='run'?'<div class="bar"><button id="cb" onclick="crOut()"></button></div>':chips()+'<div class="bar"><button onclick="crGo()">LUNCURKAN</button></div>')}
+function crGo(){if(S.chips<S.bet){K.msg='Chip kurang';return crR()}pay(-S.bet);K={ph:'run',bet:S.bet,m:1,x:Math.min(200,Math.max(1.01,.97/(1-Math.random()))),msg:'Naik terus... 🚀'};crR();crT();K.iv=setInterval(()=>{K.m+=K.m*.012+.003;if(K.m>=K.x){clearInterval(K.iv);K.m=K.x;K.ph='boom';K.msg='💥 Meledak di '+K.x.toFixed(2)+'×';fx(0);crR()}else crT()},70)}
+function crT(){$('mx').textContent=K.m.toFixed(2)+'×';$('cb').textContent='AMBIL '+Math.floor(K.bet*K.m);const r=$('rk');r.style.left=Math.min(82,4+(K.m-1)*9)+'%';r.style.bottom=Math.min(70,6+(K.m-1)*11)+'%'}
+function crOut(){clearInterval(K.iv);const g=Math.floor(K.bet*K.m);pay(g);K.ph='end';K.msg='Diambil di '+K.m.toFixed(2)+'× → +'+(g-K.bet);fx(1,K.m>=2);crR()}
+// MINES
+let M;
+function mnI(){M={ph:'bet',o:[],m:1,k:0,msg:'Hindari 3 ranjau 💣'};mnR()}
+function mnR(w){const g=M.g;$('g').innerHTML=arc('CRYSTAL MINES')+'<div class="mg">'+Array.from({length:25},(_,i)=>{const v=M.o[i]||(M.ph=='end'&&g);return `<button class="mt ${v?(g[i]?'bm':'gm'):''}" onclick="mnP(${i})" ${M.ph!='play'||M.o[i]?'disabled':''}>${v?(g[i]?'💣':'💎'):''}</button>`}).join('')+`</div><div class="msg ${w?'w':''}" id="ms">${M.msg}</div>`+(M.ph=='play'?`<div class="bar"><button class="s" onclick="mnCash()" ${M.k?'':'disabled'}>AMBIL ${Math.floor(M.bet*M.m)} (×${M.m.toFixed(2)})</button></div>`:chips()+'<div class="bar"><button onclick="mnGo()">MULAI</button></div>')}
+function mnGo(){if(S.chips<S.bet){M.msg='Chip kurang';return mnR()}pay(-S.bet);snd('chip');const g=Array(25).fill(0);for(let n=0;n<3;){const i=Math.random()*25|0;if(!g[i]){g[i]=1;n++}}M={ph:'play',bet:S.bet,g,o:[],m:1,k:0,msg:'Buka kristal 💎'};mnR()}
+function mnP(i){M.o[i]=1;if(M.g[i]){M.ph='end';M.msg='💥 Kena ranjau!';fx(0);return mnR()}M.m*=(25-M.k)/(22-M.k)*.985;M.k++;snd('tick');M.msg='Aman! ×'+M.m.toFixed(2);mnR()}
+function mnCash(){const g=Math.floor(M.bet*M.m);pay(g);M.ph='end';M.msg='Kamu ambil '+g+' 🎉';fx(1,M.m>=2);mnR(1)}
+// SHELL
+let C;
+function shI(){C={ph:'bet',pos:[0,1,2],b:1};$('g').innerHTML=arc('TEBAK GELAS')+'<div class="cups" id="ar"></div><div class="msg" id="ms">Ikuti bola 🔴 · menang ×2.8</div><div id="sc"></div>';shA();shS()}
+function shA(){$('ar').innerHTML=[0,1,2].map(i=>`<div class="cp" id="c${i}" style="left:${C.pos[i]*33.3}%" onclick="shP(${i})"><span class="ball">${C.b==i?'🔴':''}</span><span class="cu">🥤</span></div>`).join('')}
+function shS(){$('sc').innerHTML=chips()+'<div class="bar"><button onclick="shGo()" '+(C.ph=='bet'?'':'disabled')+'>MULAI</button></div>'}
+function shGo(){if(S.chips<S.bet)return say('Chip kurang');pay(-S.bet);C={ph:'show',bet:S.bet,pos:[0,1,2],b:Math.random()*3|0};shA();shS();$('c'+C.b).classList.add('up');say('Perhatikan bolanya...');
+setTimeout(()=>{$('c'+C.b).classList.remove('up');let n=0;const iv=setInterval(()=>{const a=Math.random()*3|0,b=(a+1+(Math.random()*2|0))%3;[C.pos[a],C.pos[b]]=[C.pos[b],C.pos[a]];$('c'+a).style.left=C.pos[a]*33.3+'%';$('c'+b).style.left=C.pos[b]*33.3+'%';snd('deal');if(++n>12){clearInterval(iv);C.ph='pick';say('Pilih gelas! 👆')}},420)},1200)}
+function shP(i){if(C.ph!='pick')return;C.ph='end';$('c'+i).classList.add('up');$('c'+C.b).classList.add('up');const w=i==C.b;if(w)pay(Math.floor(C.bet*2.8));fx(w,1);say(w?'Tebakan benar! +'+Math.floor(C.bet*1.8):'Salah! Bola ada di gelas lain',w);setTimeout(()=>{C.ph='bet';shS()},900)}
+// DICE
+let D;
+function dcI(){D={t:50};$('g').innerHTML=arc('CYBER DICE')+`<div class="crash" style="height:130px"><div class="mx" id="dr">--</div></div><div class="msg" id="ms">Menang jika angka di bawah target</div><div class="bar">Target &lt; <b id="tv">50</b> · ×<b id="mv">1.96</b></div><div class="bar"><input type="range" min="5" max="95" value="50" oninput="D.t=+this.value;$('tv').textContent=D.t;$('mv').textContent=(98/D.t).toFixed(2)"></div>`+chips()+'<div class="bar"><button id="db" onclick="dcRoll()">ROLL</button></div>'}
+function dcRoll(){if(S.chips<S.bet)return say('Chip kurang');pay(-S.bet);const bt=S.bet,t=D.t;$('db').disabled=true;let n=0;const iv=setInterval(()=>{snd('tick');$('dr').textContent=(Math.random()*100).toFixed(2);if(++n>14){clearInterval(iv);const r=Math.random()*100,g=Math.floor(bt*98/t);$('dr').textContent=r.toFixed(2);const w=r<t;if(w)pay(g);fx(w,w&&g>=bt*3);say(w?'Menang! +'+(g-bt):'Kalah',w);$('db').disabled=false}},70)}
+// CHESS
+const PV={p:1,n:3,b:3.2,r:5,q:9,k:100},GL={k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};let X;
+const isW=c=>c==c.toUpperCase();
+function mvs(b,w){const o=[];for(let i=0;i<64;i++){const c=b[i];if(!c||isW(c)!=w)continue;const t=c.toLowerCase(),r=i>>3,f=i&7;
+const add=(r2,f2,cap)=>{if(r2<0||r2>7||f2<0||f2>7)return 0;const j=r2*8+f2,d=b[j];if(d&&isW(d)==w)return 0;if(cap===0&&d)return 0;if(cap===1&&!d)return 0;o.push([i,j]);return !d};
+if(t=='p'){const d=w?-1:1;if(add(r+d,f,0)&&(w?r==6:r==1))add(r+2*d,f,0);add(r+d,f-1,1);add(r+d,f+1,1)}
+else if(t=='n')[[1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]].forEach(([a,e])=>add(r+a,f+e));
+else if(t=='k'){for(let a=-1;a<2;a++)for(let e=-1;e<2;e++)(a||e)&&add(r+a,f+e)}
+else{const R=[[1,0],[-1,0],[0,1],[0,-1]],Bi=[[1,1],[1,-1],[-1,1],[-1,-1]];(t=='r'?R:t=='b'?Bi:R.concat(Bi)).forEach(([a,e])=>{let y=r+a,x=f+e;while(add(y,x)){y+=a;x+=e}})}}return o}
+function ap(b,m){const n=b.slice(),c=n[m[0]];n[m[1]]=c=='P'&&m[1]<8?'Q':c=='p'&&m[1]>55?'q':c;n[m[0]]='';return n}
+const inCk=(b,w)=>{const k=b.indexOf(w?'K':'k');return k<0||mvs(b,!w).some(m=>m[1]==k)};
+const legal=(b,w)=>mvs(b,w).filter(m=>!inCk(ap(b,m),w));
+function evb(b){let s=0;b.forEach((c,i)=>{if(c){const v=PV[c.toLowerCase()]*10+((i>>3)>1&&(i>>3)<6&&(i&7)>1&&(i&7)<6?1:0);s+=isW(c)?v:-v}});return s}
+function nm(b,w,d,a,be){if(!d)return(w?1:-1)*evb(b);let best=-1e9;for(const m of mvs(b,w)){const t=b[m[1]],v=t&&t.toLowerCase()=='k'?1e6:-nm(ap(b,m),!w,d-1,-be,-a);if(v>best)best=v;if(best>a)a=best;if(a>=be)break}return best}
+function chI(){X={b:Array.from('rnbqkbnrpppppppp'+' '.repeat(32)+'PPPPPPPPRNBQKBNR',c=>c==' '?'':c),sel:null,msg:'Giliranmu (putih) · menang +150 chip',over:0,ai:0};chR()}
+function chR(){const tg=X.sel==null?[]:legal(X.b,true).filter(m=>m[0]==X.sel).map(m=>m[1]);
+$('g').innerHTML=arc('CYBER CHESS')+'<div class="chess">'+X.b.map((c,i)=>`<div class="sq ${((i>>3)+i)%2?'d':'l'} ${X.sel==i?'s':''} ${tg.includes(i)?'t':''}" onclick="chC(${i})">${c?`<span class="${isW(c)?'pw':'pb'}">${GL[c.toLowerCase()]}\uFE0E</span>`:''}</div>`).join('')+`</div><div class="msg" id="ms">${X.msg}</div><div class="bar"><button class="s" onclick="chI()">Game Baru</button></div>`}
+function chC(i){if(X.over||X.ai)return;const c=X.b[i];if(c&&isW(c)){X.sel=i;snd('tick');return chR()}
+if(X.sel!=null&&legal(X.b,true).some(m=>m[0]==X.sel&&m[1]==i)){X.b=ap(X.b,[X.sel,i]);X.sel=null;snd('deal');if(!legal(X.b,false).length)return chEnd(inCk(X.b,false));X.ai=1;X.msg='AI berpikir...';chR();setTimeout(chAI,300)}}
+function chAI(){const Lg=legal(X.b,false);let best=-1e9,bm;for(const m of Lg){const v=-nm(ap(X.b,m),true,2,-1e9,1e9)+Math.random()*.3;if(v>best){best=v;bm=m}}X.b=ap(X.b,bm);X.ai=0;snd('deal');if(!legal(X.b,true).length)return chEnd(0,inCk(X.b,true));X.msg=inCk(X.b,true)?'Skak! ♚':'Giliranmu';chR()}
+function chEnd(w,l){X.over=1;X.ai=0;if(w){pay(150);X.msg='SKAKMAT! Kamu menang +150 🎉';fx(1,1)}else if(l){X.msg='Skakmat. AI menang';fx(0)}else X.msg='Remis (stalemate)';chR()}
+// ===== MULTIPLAYER & GAME BARU =====
+let GT=0,NP=2,TRI,CM=0;const PC=['#ff5a5f','#38bdf8','#facc15','#4ade80'],PN=['Merah','Biru','Kuning','Hijau'];
+function go(k){GT++;clearInterval(TRI);if(K&&K.iv)clearInterval(K.iv);snd('chip');$('m').innerHTML=`<button class="bk" onclick="home()">← Lobi</button><h2>${G[k][0]}</h2><div class="tbl" id="g"></div>`;GM[k]();upd()}
+const wt=(f,ms)=>{const t=GT;setTimeout(()=>{if(t==GT)f()},ms)};
+const npb=(fn,mx=4)=>`<div class="bar">Pemain: ${[2,3,4].filter(n=>n<=mx).map(n=>`<button class="${NP==n?'':'s'}" onclick="NP=${n};${fn}()">${n}</button>`).join('')}</div>`;
+const dot=i=>`<i class="tk" style="background:${PC[i]}"></i>`;
+const plb=(a,t)=>`<div class="bar">${a.map((x,i)=>`<span class="pl ${t==i?'on':''}">${dot(i)}${PN[i]} ${x}</span>`).join('')}</div>`;
+Object.assign(G,{sl:['Mega Slots 5×3','5 reel · 5 payline · jackpot ×50'],ut:['Ular Tangga','2-4 pemain · naik tangga, hindari ular'],bm:['Balap Mobil','2-4 pemain · pilih gaya nyetir'],mm:['Memory Match','2-4 pemain · cari pasangan'],kd:['Kuda Balap','Taruhan · odds hingga ×80'],dm:['Domino Gaplek','Kamu + 1-3 bot · pot taruhan'],pk:['Texas Poker','Kamu + 1-3 bot · ante & bet'],tr:['Trading Live','Long/Short · leverage ×2-×10']});
+Object.assign(ART,{ut:()=>em('🐍'),bm:()=>em('🏎️'),mm:()=>em('🃏'),kd:()=>em('🏇'),dm:()=>em('🁣'),pk:()=>em('♠️'),tr:()=>em('📈')});
+Object.assign(GM,{sl:slI,ut:utI,bm:bmI,mm:mmI,kd:kdI,dm:dmI,pk:pkI,tr:trI,ch:chI});
+const CAT=[['🎰 Kasino & Taruhan',['bj','vp','rl','sl','hl','cr','mn','sh','dc','kd','tr']],['👥 Multiplayer & Santai',['ut','bm','mm','dm','pk','ch']]],BG={ut:'2-4P',bm:'2-4P',mm:'2-4P',dm:'2-4P',pk:'2-4P',ch:'2P',kd:'TARUHAN',tr:'LIVE',sl:'5×3'};
+function home(){let h='<div class="hero"><h1>LUCKY CASINO</h1><p class="sub">Main gratis dengan chip virtual – tanpa uang asli. Nyalakan suara 🎵</p></div>';
+CAT.forEach(([t,ks])=>{h+=`<h2 class="ct">${t}</h2><div class="grid">`+ks.map(k=>`<div class="tile" onclick="go('${k}')">${BG[k]?`<span class="badge ${/P$/.test(BG[k])?'g':''}">${BG[k]}</span>`:''}${k=='rl'?'<div class="fan" style="height:134px"><div style="width:120px;margin:0 auto;animation:spin 20s linear infinite">'+ART.rl()+'</div></div>':ART[k]()}<h3>${G[k][0]}</h3><p>${G[k][1]}</p></div>`).join('')+'</div>'});$('m').innerHTML=h;upd()}
+// ----- MEGA SLOT 5x3 -----
+const SY5=['🍒','🍋','🔔','7️⃣','💎','⭐'],SW5=[30,26,20,9,6,9],LN5=[[0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2]],PY5={'🍒':[.6,2,5,15],'🍋':[0,3,8,20],'🔔':[0,5,12,35],'7️⃣':[0,10,30,100],'💎':[0,15,50,250]};
+const rs5=()=>{let r=Math.random()*100,i=0;while((r-=SW5[i])>=0)i++;return SY5[i]};
+const g5=()=>Array.from({length:5},()=>[rs5(),rs5(),rs5()]);
+function slI(){L={g:g5()};$('g').innerHTML=arc('MEGA SLOTS 5×3')+'<div class="r5">'+[0,1,2].map(r=>[0,1,2,3,4].map(c=>`<div class="cl" id="c${c}${r}">${L.g[c][r]}</div>`).join('')).join('')+'</div><div class="msg" id="ms">5 payline · ⭐ = Wild · 2 🍒 pun dibayar</div>'+chips()+'<div class="bar"><button id="sb" onclick="slSpin()">SPIN</button></div><table class="pt">'+Object.entries(PY5).map(([s,v])=>`<tr><td>${s}</td><td>×${v.slice(1).join(' / ×')} <small>(3/4/5 sama)</small></td></tr>`).join('')+'<tr><td>🍀</td><td>Koin Hoki: bonus acak sesekali</td></tr></table>'}
+function slSpin(){if(S.chips<S.bet)return say('Chip kurang');pay(-S.bet);const bt=S.bet,t0=GT,fin=g5();$('sb').disabled=true;say('Berputar...');let t=0;
+const iv=setInterval(()=>{if(t0!=GT)return clearInterval(iv);t++;snd('tick');for(let c=0;c<5;c++)for(let r=0;r<3;r++){const e=$('c'+c+r);e.classList.remove('hit');e.textContent=t<10+c*6?rs5():fin[c][r]}
+if(t>34){clearInterval(iv);let tot=0;const lb=bt/5,hit=[];
+LN5.forEach(l=>{const row=l.map((r,c)=>fin[c][r]),s=row.find(x=>x!='⭐')||'💎';let n=0;for(const x of row){if(x==s||x=='⭐')n++;else break}const m=n>=2?PY5[s][n-2]:0;if(m){tot+=lb*m;for(let c=0;c<n;c++)hit.push('c'+c+l[c])}});
+let bn=0;if(Math.random()<.03){bn=Math.round(bt*(.4+Math.random()*.6));tot+=bn}
+tot=Math.floor(tot);if(tot)pay(tot);hit.forEach(i=>$(i).classList.add('hit'));fx(tot>bt,tot>=bt*5);
+say((bn?'🍀 Koin Hoki! ':'')+(tot>bt?'MENANG +'+(tot-bt)+' 🎉':tot?'Hadiah kecil +'+tot:'Belum beruntung'),tot>bt);$('sb').disabled=false}},75)}
+// ----- ULAR TANGGA -----
+const SN={16:6,47:26,49:11,56:53,62:19,64:60,87:24,93:73,95:75,98:78},LA={1:38,4:14,9:31,21:42,28:84,36:44,51:67,71:91,80:100};let U;
+function utI(){U={p:Array(NP).fill(0),t:0,d:0,lock:0,over:0,msg:'Giliran '+PN[0]+' – lempar dadu!'};utR()}
+function utR(){let h='';for(let r=9;r>=0;r--)for(let c=0;c<10;c++){const n=r*10+(r%2?9-c:c)+1;h+=`<div class="ut ${SN[n]?'sn':LA[n]?'la':(r+c)%2?'a':''}"><small>${n}</small>${SN[n]?'🐍':LA[n]?'🪜':''}<div class="tks">${U.p.map((x,i)=>x==n?dot(i):'').join('')}</div></div>`}
+$('g').innerHTML=arc('ULAR TANGGA')+npb('utI')+plb(U.p,U.t)+`<div class="ub">${h}</div><div class="msg" id="ms">${U.msg}</div><div class="bar"><div class="die">${U.d?'⚀⚁⚂⚃⚄⚅'[U.d-1]:'🎲'}</div><button onclick="utRoll()" ${U.lock||U.over?'disabled':''}>LEMPAR</button></div>`}
+function utRoll(){U.lock=1;let n=0;const t=GT,iv=setInterval(()=>{if(t!=GT)return clearInterval(iv);snd('tick');U.d=1+(Math.random()*6|0);utR();if(++n>7){clearInterval(iv);utMv()}},70)}
+function utMv(){const i=U.t;let p=U.p[i]+U.d,m=PN[i]+' maju '+U.d;if(p>100){p=U.p[i];m+=' (kelebihan)'}else if(SN[p]){p=SN[p];m+=' 🐍 turun ke '+p;snd('lose')}else if(LA[p]){p=LA[p];m+=' 🪜 naik ke '+p;snd('win')}
+U.p[i]=p;if(p==100){U.over=1;U.msg='🏆 '+PN[i]+' menang! Hadiah +100 chip';pay(100);fx(1,1);return utR()}
+if(U.d!=6)U.t=(i+1)%NP;else m+=' · bonus giliran!';U.lock=0;U.msg=m+' → '+PN[U.t];utR()}
+// ----- BALAP MOBIL -----
+let Z;const TL=30;
+function bmI(){Z={p:Array(NP).fill(0),t:0,over:0,msg:'Giliran '+PN[0]+' – pilih gaya nyetir'};bmR()}
+function bmR(){$('g').innerHTML=arc('BALAP MOBIL')+npb('bmI')+plb(Z.p.map(x=>x+'/'+TL),Z.t)+'<div class="trk">'+Z.p.map((x,i)=>`<div class="ln ${Z.t==i?'on':''}"><em>${PN[i]}</em><span class="car" style="left:${4+x/TL*80}%;filter:hue-rotate(${[0,200,50,110][i]}deg)">🏎️</span><b>🏁</b></div>`).join('')+`</div><div class="msg" id="ms">${Z.msg}</div>`+(Z.over?'':`<div class="bar"><button class="s" onclick="bmG(0)">🐢 Aman (2-3)</button><button onclick="bmG(1)">🚗 Normal (1-6)</button><button class="r" onclick="bmG(2)">🚀 Turbo (0 / 7-9)</button></div>`)}
+function bmG(m){const i=Z.t,s=m==0?2+(Math.random()*2|0):m==1?1+(Math.random()*6|0):Math.random()<.5?0:7+(Math.random()*3|0);snd(s?'deal':'lose');Z.p[i]=Math.min(TL,Z.p[i]+s);
+if(Z.p[i]>=TL){Z.over=1;Z.msg='🏁 '+PN[i]+' juara! Hadiah +50 chip';pay(50);fx(1,1);return bmR()}
+Z.t=(i+1)%NP;Z.msg=PN[i]+(s?' maju '+s+' petak':' mogok! 💨')+' → giliran '+PN[Z.t];bmR()}
+// ----- MEMORY MATCH -----
+let Mm;const MJ=['🐶','🐱','🦊','🐼','🐸','🦄','🐙','🍉'];
+function mmI(){Mm={d:[...MJ,...MJ].sort(()=>Math.random()-.5),o:[],f:[],s:Array(NP).fill(0),t:0,lock:0,msg:'Giliran '+PN[0]};mmR()}
+function mmR(){$('g').innerHTML=arc('MEMORY MATCH')+npb('mmI')+plb(Mm.s,Mm.t)+`<div class="mg mm">${Mm.d.map((e,i)=>`<button class="mt ${Mm.f.includes(i)?'gm':''}" onclick="mmP(${i})">${Mm.f.includes(i)||Mm.o.includes(i)?e:'❔'}</button>`).join('')}</div><div class="msg" id="ms">${Mm.msg}</div>`}
+function mmP(i){if(Mm.lock||Mm.f.includes(i)||Mm.o.includes(i))return;snd('tick');Mm.o.push(i);if(Mm.o.length<2)return mmR();Mm.lock=1;const[a,b]=Mm.o;
+if(Mm.d[a]==Mm.d[b]){Mm.f.push(a,b);Mm.s[Mm.t]++;Mm.o=[];Mm.lock=0;snd('win');
+if(Mm.f.length==16){const mx=Math.max(...Mm.s),w=Mm.s.map((x,k)=>x==mx?PN[k]:'').filter(Boolean);Mm.msg='🏆 '+w.join(' & ')+' menang! +50 chip';pay(50);fx(1,1)}else Mm.msg=PN[Mm.t]+' dapat pasangan! Main lagi';return mmR()}
+Mm.msg='Tidak cocok…';mmR();wt(()=>{Mm.o=[];Mm.t=(Mm.t+1)%NP;Mm.lock=0;Mm.msg='Giliran '+PN[Mm.t];mmR()},900)}
+// ----- KUDA BALAP -----
+const HO=[['🐎','Petir',2.3,1],['🏇','Badai',3.2,.9],['🐴','Bintang',5,.8],['🦄','Pelangi',10,.7],['🐎','Kilat',24,.6],['🐢','Si Lamban',80,.5]],HC=['#ff5a5f','#38bdf8','#facc15','#4ade80','#c084fc','#fb923c'];let Ho;
+function kdI(){Ho={sel:0,run:0,p:HO.map(()=>0),msg:'Pilih kuda jagoanmu, lalu START 🏁'};kdR()}
+function kdR(){$('g').innerHTML=arc('KUDA BALAP')+'<div class="trk hz">'+HO.map((h,i)=>`<div class="ln ${Ho.sel==i?'on':''}" style="border-left:6px solid ${HC[i]}" onclick="kdS(${i})"><em>${i+1}. ${h[1]}</em><span class="car" style="left:${4+Ho.p[i]*.8}%">${h[0]}</span><b>🏁</b></div>`).join('')+`</div><div class="bar">${HO.map((h,i)=>`<button class="${Ho.sel==i?'':'s'}" onclick="kdS(${i})" ${Ho.run?'disabled':''}>${i+1} · ×${h[2]}</button>`).join('')}</div><div class="msg" id="ms">${Ho.msg}</div>`+chips()+`<div class="bar"><button onclick="kdGo()" ${Ho.run?'disabled':''}>START BALAP</button></div>`}
+function kdS(i){if(!Ho.run){Ho.sel=i;kdR()}}
+function kdGo(){if(S.chips<S.bet)return say('Chip kurang');pay(-S.bet);const bt=S.bet,sel=Ho.sel,f=HO.map(h=>h[3]*(.2+1.6*Math.random()));Ho.run=1;Ho.p=HO.map(()=>0);Ho.msg='Mereka berlari! 🏁';kdR();snd('chip');const t=GT,cs=()=>document.querySelectorAll('.car'),iv=setInterval(()=>{if(t!=GT)return clearInterval(iv);snd('tick');cs().forEach((e,i)=>{Ho.p[i]+=f[i]*(.7+.6*Math.random())*2;e.style.left=4+Math.min(100,Ho.p[i])*.8+'%'});
+if(Math.max(...Ho.p)>=100){clearInterval(iv);const w=Ho.p.indexOf(Math.max(...Ho.p));Ho.run=0;const g=Math.floor(bt*HO[w][2]);if(w==sel)pay(g);Ho.msg=`🏆 ${HO[w][1]} juara! `+(w==sel?'Kamu menang +'+(g-bt):'Jagoanmu kalah');fx(w==sel,w==sel&&HO[w][2]>=5);kdR()}},70)}
+// ----- DOMINO GAPLEK -----
+let Dm;const DF=['⬜','⚀','⚁','⚂','⚃','⚄','⚅'];
+const dmt=(t,c='',o='')=>`<div class="dmt" ${o}><span>${DF[t[0]]}</span><i></i><span>${DF[t[1]]}</span></div>`;
+function dmI(){Dm={ph:'bet',h:[],ch:[],bone:[],t:0,ps:0,sel:null,over:0,msg:'Pasang ante, lalu bagi domino'};dmR()}
+function dmGo(){if(S.chips<S.bet){Dm.msg='Chip kurang';return dmR()}pay(-S.bet);snd('deal');const t=[];for(let a=0;a<7;a++)for(let b=a;b<7;b++)t.push([a,b]);t.sort(()=>Math.random()-.5);
+Dm={ph:'play',pot:S.bet*NP,h:Array.from({length:NP},()=>t.splice(0,7)),bone:t,ch:[],t:0,ps:0,sel:null,over:0,msg:'Giliranmu – mainkan domino apa saja'};dmR()}
+const dmE=()=>Dm.ch.length?[Dm.ch[0][0],Dm.ch[Dm.ch.length-1][1]]:[-1,-1],dmOk=(t,e)=>t[0]==e||t[1]==e;
+function dmR(){const my=Dm.h[0]||[],can=Dm.ph=='play'&&Dm.t==0&&!Dm.over,np=can&&!dmPick(0);
+$('g').innerHTML=arc('DOMINO GAPLEK')+(Dm.ph=='play'?`<div class="bar">`+Dm.h.map((h,i)=>i?`<span class="pl ${Dm.t==i?'on':''}">🤖 Bot ${i} · ${h.length} 🁢</span>`:'').join('')+`<span class="pl">Pot <b style="color:var(--gold)">${Dm.pot}</b> · Tumpukan ${Dm.bone.length}</span></div>`:npb('dmI'))+`<div class="cn">${Dm.ch.map(t=>dmt(t)).join('')||'<div class="lbl">Meja kosong</div>'}</div><div class="msg" id="ms">${Dm.msg}</div><div class="row" style="padding-left:0;flex-wrap:wrap">${my.map((t,k)=>dmt(t,'',`onclick="dmC(${k})" style="${Dm.sel==k?'outline:3px solid var(--gold)':''}"`)).join('')}</div>`+
+(Dm.sel!=null?`<div class="bar"><button onclick="dmPl(0,Dm.sel,'L')">◀ Kiri</button><button onclick="dmPl(0,Dm.sel,'R')">Kanan ▶</button></div>`:'')+(np?`<div class="bar">${Dm.bone.length?`<button onclick="dmDraw()">Ambil dari tumpukan</button>`:`<button class="s" onclick="dmPass()">Lewati giliran</button>`}</div>`:'')+(Dm.ph!='play'?chips()+'<div class="bar"><button onclick="dmGo()">BAGI DOMINO</button></div>':'')}
+function dmPick(i){const e=dmE();let b=null,bv=-1;Dm.h[i].forEach((t,k)=>{if(!Dm.ch.length||dmOk(t,e[0])||dmOk(t,e[1])){const v=t[0]+t[1];if(v>bv){bv=v;b=[k,!Dm.ch.length||dmOk(t,e[1])?'R':'L']}}});return b}
+function dmPl(i,k,side){const t=Dm.h[i].splice(k,1)[0];Dm.sel=null;if(!Dm.ch.length)Dm.ch.push(t);else if(side=='L'){const e=Dm.ch[0][0];Dm.ch.unshift(t[1]==e?t:[t[1],t[0]])}else{const e=Dm.ch[Dm.ch.length-1][1];Dm.ch.push(t[0]==e?t:[t[1],t[0]])}Dm.ps=0;snd('deal');
+if(!Dm.h[i].length)return dmEnd(i,(i?'Bot '+i:'Kamu')+' habis kartu!');dmNx((i?'Bot '+i:'Kamu')+' main '+DF[t[0]]+DF[t[1]])}
+function dmNx(m){Dm.t=(Dm.t+1)%NP;Dm.msg=m+' → '+(Dm.t?'Bot '+Dm.t:'giliranmu');dmR();if(Dm.t)wt(dmBot,800)}
+function dmBot(){if(Dm.over)return;const i=Dm.t;let p=dmPick(i);while(!p&&Dm.bone.length){Dm.h[i].push(Dm.bone.pop());p=dmPick(i)}
+if(p)return dmPl(i,p[0],p[1]);Dm.ps++;if(Dm.ps>=NP)return dmBlock();dmNx('Bot '+i+' lewati')}
+function dmC(k){if(Dm.ph!='play'||Dm.t||Dm.over)return;const t=Dm.h[0][k],e=dmE();if(!Dm.ch.length)return dmPl(0,k,'R');const L=dmOk(t,e[0]),R=dmOk(t,e[1]);if(!L&&!R){snd('lose');return}
+if(L&&R&&e[0]!=e[1]){Dm.sel=k;Dm.msg='Pasang di sisi mana?';return dmR()}dmPl(0,k,R?'R':'L')}
+function dmDraw(){Dm.h[0].push(Dm.bone.pop());snd('deal');dmR()}
+function dmPass(){Dm.ps++;if(Dm.ps>=NP)return dmBlock();dmNx('Kamu lewati')}
+function dmBlock(){const s=Dm.h.map(h=>h.reduce((a,t)=>a+t[0]+t[1],0));dmEnd(s.indexOf(Math.min(...s)),'Meja buntu! Poin terkecil menang.')}
+function dmEnd(w,m){Dm.over=1;Dm.ph='end';if(w==0){pay(Dm.pot);fx(1,1);m='🏆 '+m+' +'+Dm.pot}else{fx(0);m='Bot '+w+' menang. '+m}Dm.msg=m;dmR()}
+// ----- TEXAS POKER -----
+const PH=['High Card','Pair','Two Pair','Three of a Kind','Straight','Flush','Full House','Four of a Kind','Straight Flush'];let Pk;
+function h5(h){const v=h.map(c=>rk(c.r)).sort((a,b)=>b-a),fl=h.every(c=>c.s==h[0].s),cn={};v.forEach(x=>cn[x]=(cn[x]||0)+1);const g=Object.keys(cn).map(Number).sort((a,b)=>cn[b]-cn[a]||b-a),k=g.map(x=>cn[x]);let st=new Set(v).size==5&&v[0]-v[4]==4,hi=v[0];if(v.join()=='14,5,4,3,2'){st=1;hi=5}
+return[st&&fl?8:k[0]==4?7:k[0]==3&&k[1]==2?6:fl?5:st?4:k[0]==3?3:k[0]==2&&k[1]==2?2:k[0]==2?1:0,...(st?[hi]:g)]}
+const cmp=(a,b)=>{for(let i=0;i<Math.max(a.length,b.length);i++){const d=(a[i]||0)-(b[i]||0);if(d)return d}return 0};
+function best(h){let b=null;for(let i=0;i<h.length;i++)for(let j=i+1;j<h.length;j++){const s=h5(h.filter((_,x)=>x!=i&&x!=j));if(!b||cmp(s,b)>0)b=s}return b}
+const vis=()=>[0,3,4,5][Pk.st];
+function bs(i){const c=Pk.p[i].concat(Pk.b.slice(0,vis()));if(c.length<5){const a=rk(c[0].r),b=rk(c[1].r),hi=Math.max(a,b),lo=Math.min(a,b);return a==b?.75+hi/60:(hi+lo)/40+(c[0].s==c[1].s?.06:0)+(hi-lo<3?.04:0)}const s=best(c);return Math.min(1,.3+s[0]*.14+(s[0]?0:s[1]/70))}
+function pkI(){Pk={ph:'bet',p:[],b:[],f:[],st:0,pot:0,msg:'Pasang ante, lalu bagi kartu'};pkR()}
+function pkGo(){if(S.chips<S.bet){Pk.msg='Chip kurang';return pkR()}const u=S.bet;pay(-u);snd('deal');const d=mk();Pk={ph:'act',u,pot:u*NP,p:Array.from({length:NP},()=>d.splice(0,2)),b:d.splice(0,5),f:Array(NP).fill(0),st:0,msg:'Preflop – Check atau Bet '+u+'?'};pkR()}
+function pkR(){const end=Pk.ph=='end',v=Pk.ph=='bet'?0:vis();
+$('g').innerHTML=arc('TEXAS HOLD’EM')+(Pk.ph=='bet'||end?npb('pkI'):'')+'<div class="bar">'+Pk.p.map((h,i)=>i?`<div class="pl ${Pk.f[i]?'':'on'}">🤖 Bot ${i}${Pk.f[i]?' (fold)':''}<div class="row sm" style="padding-left:14px">${h.map(c=>cd(c,!end||Pk.f[i])).join('')}</div></div>`:'').join('')+`</div><div class="lbl">Pot<b>${Pk.pot}</b></div><div class="row">${Pk.b.slice(0,v).map(c=>cd(c)).join('')||'<div class="lbl">— kartu komunal —</div>'}</div><div class="msg" id="ms">${Pk.msg}</div><div class="row">${(Pk.p[0]||[]).map(c=>cd(c)).join('')}</div>`+(Pk.p[0]&&v>=3?`<div class="lbl">${PH[best(Pk.p[0].concat(Pk.b.slice(0,v)))[0]]}</div>`:'')+
+(Pk.ph=='act'?`<div class="bar"><button class="s" onclick="pkAct('chk')">Check</button><button onclick="pkAct('bet')">Bet ${Pk.u}</button><button class="r" onclick="pkAct('fold')">Fold</button></div>`:Pk.ph=='resp'?`<div class="bar"><button onclick="pkAct('call')">Call ${Pk.u}</button><button class="r" onclick="pkAct('fold')">Fold</button></div>`:chips()+'<div class="bar"><button onclick="pkGo()">BAGI KARTU</button></div>')}
+function pkAct(a){const u=Pk.u;if(a=='fold'){Pk.ph='end';Pk.msg='Kamu fold. Pot hilang 😔';fx(0);return pkR()}
+if(a=='call'||a=='bet'){if(S.chips<u)return say('Chip kurang');pay(-u);snd('chip');Pk.pot+=u;
+if(a=='call')Pk.pot+=u;else{for(let i=1;i<NP;i++)if(!Pk.f[i]){if(bs(i)+Math.random()*.25-.12<.38)Pk.f[i]=1;else Pk.pot+=u}if(Pk.f.slice(1).every(x=>x))return pkEnd([0],'Semua bot fold!')}return pkNext()}
+for(let i=1;i<NP;i++)if(!Pk.f[i]&&bs(i)>.68&&Math.random()<.5){Pk.ph='resp';Pk.msg='Bot '+i+' bet '+u+'! Call atau Fold?';return pkR()}pkNext()}
+function pkNext(){if(Pk.st==3){const a=[];let bt=null;Pk.p.forEach((h,i)=>{if(!Pk.f[i]){const s=best(h.concat(Pk.b));if(!bt||cmp(s,bt)>0){bt=s;a.length=0;a.push(i)}else if(!cmp(s,bt))a.push(i)}});return pkEnd(a,(a[0]?'Bot '+a[0]:'Kamu')+' – '+PH[bt[0]])}
+Pk.st++;Pk.ph='act';Pk.msg=['','Flop','Turn','River'][Pk.st]+' – Check atau Bet '+Pk.u+'?';snd('deal');pkR()}
+function pkEnd(w,m){Pk.ph='end';const sh=Pk.pot/w.length|0;if(w.includes(0)){pay(sh);fx(1,sh>=Pk.u*6);m='🏆 '+m+' +'+sh}else{fx(0);m='Kalah. '+m}Pk.msg=m;pkR()}
+// ----- TRADING -----
+let Tr;
+function trS(){const l=Tr.p[Tr.p.length-1];Tr.dr=Tr.dr*.85+(Math.random()-.5)*.006;Tr.p.push(Math.max(20,l*(1+(Math.random()-.5)*.024+Tr.dr)));if(Tr.p.length>60)Tr.p.shift()}
+const trV=()=>{if(!Tr.pos)return 0;const o=Tr.pos;return o.m*(1+o.d*o.lev*(Tr.p[Tr.p.length-1]/o.e-1))};
+function trI(){Tr={p:[100],pos:null,lev:5,dr:0,msg:'Tebak arah harga: Long (naik) atau Short (turun)'};for(let i=0;i<40;i++)trS();trR();const t=GT;clearInterval(TRI);TRI=setInterval(()=>{if(t!=GT)return clearInterval(TRI);trS();if(Tr.pos&&trV()<=0){Tr.pos=null;Tr.msg='💥 Likuidasi! Margin hangus';fx(0);return trR()}trD()},650)}
+function trD(){const p=Tr.p,mn=Math.min(...p),mx=Math.max(...p),y=v=>(150-(v-mn)/(mx-mn||1)*140).toFixed(1),l=p[p.length-1],c=l>=p[0]?'#4ade80':'#ff6b70',pts=p.map((v,i)=>(i*400/(p.length-1)).toFixed(1)+','+y(v)).join(' ');
+$('tc').innerHTML=`<svg viewBox="0 0 400 160">${[0,1,2,3].map(i=>`<line x1="0" x2="400" y1="${10+i*46}" y2="${10+i*46}" stroke="#38e8ff22"/>`).join('')}<polygon points="0,160 ${pts} 400,160" fill="${c}22"/><polyline points="${pts}" fill="none" stroke="${c}" stroke-width="2.5"/>${Tr.pos?`<line x1="0" x2="400" y1="${y(Tr.pos.e)}" y2="${y(Tr.pos.e)}" stroke="#f6c945" stroke-dasharray="5"/>`:''}<circle cx="400" cy="${y(l)}" r="4" fill="${c}"/></svg>`;
+const v=trV();$('ts').innerHTML=`<span style="color:${c}">$${l.toFixed(2)}</span>`+(Tr.pos?` · ${Tr.pos.d>0?'LONG':'SHORT'} ×${Tr.pos.lev} · nilai <b style="color:${v>=Tr.pos.m?'#4ade80':'#ff6b70'}">${Math.floor(v)}</b>`:'')}
+function trR(){$('g').innerHTML=arc('TRADING LIVE')+'<div class="tc" id="tc"></div><div class="lbl" id="ts" style="font-size:15px;margin:8px 0"></div><div class="msg" id="ms">'+Tr.msg+'</div>'+(Tr.pos?'<div class="bar"><button onclick="trClose()">TUTUP POSISI</button></div>':'<div class="bar">Leverage '+[2,5,10].map(n=>`<button class="${Tr.lev==n?'':'s'}" onclick="Tr.lev=${n};trR()">×${n}</button>`).join('')+'</div>'+chips()+'<div class="bar"><button onclick="trOpen(1)" style="background:linear-gradient(#6ee7a0,#22a85a);color:#04210f">▲ LONG</button><button class="r" onclick="trOpen(-1)">▼ SHORT</button></div>');trD()}
+function trOpen(d){if(S.chips<S.bet)return say('Chip kurang');pay(-S.bet);snd('chip');Tr.pos={d,e:Tr.p[Tr.p.length-1],m:S.bet,lev:Tr.lev};Tr.msg='Posisi dibuka. Tutup sebelum terlikuidasi!';trR()}
+function trClose(){const o=Tr.pos,g=Math.floor(Math.max(trV()*(1-.002*o.lev),0));pay(g);Tr.pos=null;Tr.msg=g>o.m?'✅ Profit +'+(g-o.m):g==o.m?'Impas':'❌ Rugi '+(g-o.m);fx(g>o.m,g>=o.m*1.5);trR()}
+// ----- CATUR (AI / 2 PEMAIN) -----
+function chI(){X={b:Array.from('rnbqkbnrpppppppp'+' '.repeat(32)+'PPPPPPPPRNBQKBNR',c=>c==' '?'':c),sel:null,w:true,over:0,ai:0,msg:CM?'Giliran Putih ♙':'Giliranmu (putih) · menang +150 chip'};chR()}
+function chR(){const tg=X.sel==null?[]:legal(X.b,X.w).filter(m=>m[0]==X.sel).map(m=>m[1]);
+$('g').innerHTML=arc('CYBER CHESS')+`<div class="bar"><button class="${CM?'s':''}" onclick="CM=0;chI()">🤖 vs AI</button><button class="${CM?'':'s'}" onclick="CM=1;chI()">👥 2 Pemain</button></div><div class="chess">`+X.b.map((c,i)=>`<div class="sq ${((i>>3)+i)%2?'d':'l'} ${X.sel==i?'s':''} ${tg.includes(i)?'t':''}" onclick="chC(${i})">${c?`<span class="${isW(c)?'pw':'pb'}">${GL[c.toLowerCase()]}\uFE0E</span>`:''}</div>`).join('')+`</div><div class="msg" id="ms">${X.msg}</div><div class="bar"><button class="s" onclick="chI()">Game Baru</button></div>`}
+function chC(i){if(X.over||X.ai)return;const c=X.b[i];if(c&&isW(c)==X.w){X.sel=i;snd('tick');return chR()}
+if(X.sel!=null&&legal(X.b,X.w).some(m=>m[0]==X.sel&&m[1]==i)){X.b=ap(X.b,[X.sel,i]);X.sel=null;snd('deal');
+if(CM){X.w=!X.w;if(!legal(X.b,X.w).length)return chEnd(inCk(X.b,X.w)?(X.w?'B':'W'):'D');X.msg=(X.w?'Giliran Putih ♙':'Giliran Hitam ♟')+(inCk(X.b,X.w)?' · Skak!':'');return chR()}
+if(!legal(X.b,false).length)return chEnd(inCk(X.b,false)?'W':'D');X.ai=1;X.msg='AI berpikir...';chR();wt(chAI,300)}}
+function chAI(){const Lg=legal(X.b,false);let best=-1e9,bm;for(const m of Lg){const v=-nm(ap(X.b,m),true,2,-1e9,1e9)+Math.random()*.3;if(v>best){best=v;bm=m}}X.b=ap(X.b,bm);X.ai=0;snd('deal');if(!legal(X.b,true).length)return chEnd(inCk(X.b,true)?'B':'D');X.msg=inCk(X.b,true)?'Skak! ♚':'Giliranmu';chR()}
+function chEnd(r){X.over=1;X.ai=0;if(r=='D')X.msg='Remis (stalemate)';else if(CM){X.msg='SKAKMAT! '+(r=='W'?'Putih':'Hitam')+' menang 🎉';snd('win')}else if(r=='W'){pay(150);X.msg='SKAKMAT! Kamu menang +150 🎉';fx(1,1)}else{X.msg='Skakmat. AI menang';fx(0)}chR()}
+home();
+</script><script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+</body></html>
